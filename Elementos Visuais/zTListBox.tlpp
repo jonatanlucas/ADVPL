@@ -1,0 +1,22 @@
+#include 'Totvs.ch'
+#include 'Protheus.ch'
+
+User Function zTListBox()
+Local oDlg1
+Local aOpcoes := {"Feliz","Animado","Eufórico","Triste","Pensativo","Protheuzando","Codificando","Vagando na net","Só no Insta","O pai tá on"}
+Local nOpcao := 10
+Local oListBox
+Local oButton1
+
+oDlg1 := TDialog():New(0,0,500,500,'Painel de Lista',,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+
+oListBox := TListBox():New(25,10,{|u|if(Pcount()>0,nOpcao:=u,nOpcao)},aOpcoes,55,100,,oDlg1,,,,.T.)
+
+oListBox:bChange := {||MsgInfo("O Protheuzeiro mudou de Item -> "+aOpcoes[nOpcao],"Atencao")}
+
+oButton1  := TButton():New( 10, 10, "Mostrar Escolha",oDlg1,;
+{|| MsgInfo(aOpcoes[nOpcao],"Hoje você está")}, 60,15,,,.F.,.T.,.F.,,.F.,,,.F. )  
+
+oDlg1:Activate(,,,.T.)
+
+return

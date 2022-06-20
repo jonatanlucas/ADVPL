@@ -1,0 +1,29 @@
+#include 'totvs.ch'
+#include 'protheus.ch'
+
+User Function zTButton()
+
+Local oDlg1 //Variável que receberá a chamada da classe TDialog
+Local oButton1 //Variável que armazenará a classe do primeiro botão (se tornando um objeto)
+Local oButton2 // Variável que armazenará a classe do segundo botão (se tornando um objeto)
+Local oButton3 // Variável que armazenará a classe terceiro
+Local oButton4
+Local oButton5
+oDlg1     :=  TDialog():New(0,0,550,500,'Cadastro de Protheuzeiro(a)',,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+
+/*
+ 1° Coordenada verifcal
+ 2° Cordenada horizontal
+ 3° Titulo do botão
+ 4° Elemento onde ele será fixado
+ 5º Ação executada ao clicar no botão com o botão esquerdo do Mouse
+*/
+oButton1  :=  TButton():New( 20, 20, "Clientes",oDlg1,{||Mata030()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. )  //Chama tela de Clientes
+oButton2  :=  TButton():New( 40, 40, "Fornecedores",oDlg1,{||Mata020()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) //Chama tela de fornecedores
+oButton3  :=  TButton():New( 60, 60, "Bancos",oDlg1,{||Mata070()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oButton4  :=  TButton():New( 80, 80, "Produtos",oDlg1,{||Mata010()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oButton5  := TButton():New(100, 100, "Fechar",oDlg1,{||oDlg1:End()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oDlg1:ACTIVATE(,,,.F.)
+
+
+return

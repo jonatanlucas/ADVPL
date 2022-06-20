@@ -1,0 +1,19 @@
+#include 'Totvs.ch'
+#include 'Protheus.ch'
+
+User Function zTRadmenu()
+Local oDlg1
+Local aOpcoes := {"Feliz","Animado","Eufórico","Triste","Pensativo","Protheuzando","Codificando","Vagando na net","Só no Insta","O pai tá on"}
+Local nOpcao := 10
+Local oRadio
+Local oButton1
+
+oDlg1 := TDialog():New(0,0,500,500,'Cadastro de Protheuzeiro(a)',,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+
+oRadio := TRadMenu():New (010,010,aOpcoes,{|u|Iif (PCount()>0,nOpcao :=u,nOpcao)},oDlg1,,,,,,,,100,20,,,,.T.)
+oButton1  := TButton():New( 10, 60, "Mostrar Escolha",oDlg1,;
+{|| MsgInfo(aOpcoes[nOpcao],"Hoje você está")}, 60,15,,,.F.,.T.,.F.,,.F.,,,.F. )  
+oDlg1:Activate(,,,.T.)
+
+return
+

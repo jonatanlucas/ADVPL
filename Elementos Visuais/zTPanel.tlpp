@@ -1,0 +1,21 @@
+#include 'Totvs.ch'
+#include 'Protheus.ch'
+
+
+User Function zTPanel()
+Local oDlg1
+Local oPanel
+
+Local oSay1
+Local oGet1
+Local cGet1 := Space(20)
+
+
+oDlg1 := TDialog():New(0,0,300,300,'Cadastro de Protheuzeiro(a)',,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+oPanel := tPanel():New(10,10,"",oDlg1,,.T.,,CLR_YELLOW,CLR_BLUE,100,100)
+oSay1      := TSay():New(10,10,{||'Cliente'},oPanel,,,,,,.T.,CLR_RED,CLR_WHITE,300,20)
+oGet1      := TGet():New( 25,10 ,{|u|IIF(Pcount()>0,cGet1:=u,cGet1)},oPanel,60,10,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGet1,,,, )
+
+oDlg1:Activate(,,,.T.)
+
+return

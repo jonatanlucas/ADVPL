@@ -1,0 +1,12 @@
+#INCLUDE 'totvs.ch'
+#include 'protheus.ch'
+
+User Function zTDialog()
+
+Local oDgl1 //Variável que receberá a chamada da classe TDialog
+
+oDgl1 := TDialog():New(0,0,550,300,'Cadastro de Protheuzeiro(a)',,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+
+oDgl1:ACTIVATE(,,,.T.)
+
+return

@@ -1,0 +1,22 @@
+#include 'Totvs.ch'
+#include 'Protheus.ch'
+
+User Function zTget()
+Local oDlg1
+Local aSize := MsAdvsize() // Função interna que retorna 
+Local oSay1
+Local oButton1
+
+//Começamos aqui a criar o TGet
+
+Local cGet1 := Space(15)//variável que irá capturar o que for digitado
+Local oGet1 //varipavel responsável por receber a classe
+
+oDlg1     := TDialog():New(aSize[7],aSize[1],aSize[6],aSize[5],"Apredendo a usar o TGET",,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+oSay1      := TSay():New(10,10,{||'Digite o seu nome'},oDlg1,,,,,,.T.,CLR_RED,CLR_WHITE,300,20)
+oGet1     := TGet():New( 30,10 ,{|u|IIF(Pcount()>0,cGet1:=u,cGet1)},oDlg1,60,10,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGet1,,,, )
+oButton1  := TButton():New( 50, 10, "Mostrar Nome",oDlg1,{||MsgInfo(cGet1,"Conteúdo digitado")}, 60,15,,,.F.,.T.,.F.,,.F.,,,.F. )  
+
+oDlg1:Activate(,,,.F.)
+
+return

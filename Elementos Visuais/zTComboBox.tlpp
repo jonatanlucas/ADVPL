@@ -1,0 +1,33 @@
+#include 'Totvs.ch'
+#include 'Protheus.ch'
+
+
+/*/{Protheus.doc} zTComboBox
+description
+@type function
+@version 
+@author Placido
+@since 25/09/2020
+@return return_type, return_description
+@see https://tdn.totvs.com/display/tec/TComboBox
+@see https://tdn.totvs.com/display/tec/TComboBox%3ANew
+/*/
+User Function zTComboBox()
+Local oDlg1      // 1        2           3           4       5           6           7               8               9               10
+Local aOpcoes := {"Feliz","Animado","Eufórico","Triste","Pensativo","Protheuzando","Codificando","Vagando na net","Só no Insta","O pai tá on"}
+Local cOpcao  := aOpcoes[6]
+Local oCombo
+Local oButton1
+
+oDlg1 := TDialog():New(0,0,500,500,'Painel ComboBox',,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+
+oCombo:= tComboBox():New(010,010,{|u|if(PCount()>0,cOpcao:=u,cOpcao)},aOpcoes,60,20,oDlg1,,;
+	{||MsgStop('Mudou para o item ' + cOpcao )},,,,.T.,,,,,,,,,'cCombo')
+
+
+oButton1   := TButton():New(10, 100, "Mostrar Escolha", oDlg1,;
+{|| MsgInfo(cOpcao,"Hoje você está")}, 60,15,,,.F.,.T.,.F.,,.F.,,,.F. ) // Chama tela de Clientes
+
+oDlg1:Activate(,,,.T.)
+
+return

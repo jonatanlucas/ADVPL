@@ -1,0 +1,45 @@
+#include 'Totvs.ch'
+#include 'Protheus.ch'
+
+User Function zTget2()
+Local oDlg1
+Local oSay1
+Local oButton1
+
+//Começamos aqui a criar o TGet
+
+Local cGet1 := Space(6)//variável que irá capturar o que for digitado
+Local oGet1 //varipavel responsável por receber a classe
+
+Local cGet2 := Space(2)
+Local oGet2
+
+oDlg1      := TDialog():New(0,0,200,500,"BLOQUEADOR DE CLIENTES",,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+oSay1      := TSay():New(10,10,{||'Cliente'},oDlg1,,,,,,.T.,CLR_RED,CLR_WHITE,300,20)
+oGet1      := TGet():New( 25,10 ,{|u|IIF(Pcount()>0,cGet1:=u,cGet1)},oDlg1,40,10,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGet1,,,, )
+oGet1:cF3  := "SA1"
+
+
+oSay2      := TSay():New(10,60,{||'Loja'},oDlg1,,,,,,.T.,CLR_RED,CLR_WHITE,300,20)
+oGet2      := TGet():New(25,60,{|u|IIF(Pcount()>0,cGet2:=u,cGet2)},oDlg1,30,10,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGet1,,,, )
+
+
+oButton1  := TButton():New(60, 10, "Bloquear agora",oDlg1,{||fBloq(cGet1,cGet2)}, 60,15,,,.F.,.T.,.F.,,.F.,,,.F. )  
+
+oDlg1:Activate(,,,.T.)
+
+return
+
+
+Static Function fBloq(cCod,cLoja)
+
+DbSelectArea("SA1")
+SA1->(DbSeek(xFilial("SA1")+cCod+cLoja))
+
+RecLock("SA1",.F.)
+    SA1->A1_MSBLQL := '1'
+MsUnlock()
+
+MsgInfo("O cliente com código"+cCod+" e loja "+cLoja+" está sendo bloqueado!", "Atenção")
+
+return

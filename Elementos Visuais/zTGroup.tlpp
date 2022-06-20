@@ -1,0 +1,62 @@
+#include 'Protheus.ch'
+#include 'Totvs.ch'
+
+/*/{Protheus.doc} zTGroup
+Construir uma tela com tGroup
+@type function
+@version 
+@author Placido
+@since 24/09/2020
+@return return_type, return_description
+@see https://tdn.totvs.com/display/tec/TGroup
+/*/
+User Function zTGroup()
+Local oDlg1
+Local oButton1, oButton2
+Local oGroup1, oGroup2
+
+//NÃO SE DECLARA VARIÁVEL PRIVADA ANTES DE LOCAL
+Private cGet1, cGet2, cGet3, cGet4 
+Private oGet1, oGet2, oGet3,  oGet4
+
+
+cGet1 := Space(30)
+cGet2 := Space(30)
+cGet3 := Space(30)
+cGet4 := Space(30)
+
+
+oDlg1   := TDialog():New(0,0,410,410,'Elemento TGroup com TGet',,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+
+//Grupo 1
+oGroup1 := tGroup():New(010,010,100,200,"Grupo 1",oDlg1,,,.T.)
+oGet1   := TGet():New(30,30,{|u| IIF(Pcount()>0,cGet1:=u,cGet1)},oGroup1,100,10,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGet1,,,, )     
+oGet2   := TGet():New(50,30,{|u| IIF(Pcount()>0,cGet2:=u,cGet2)},oGroup1,100,10,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGet2,,,, )   
+oButton1 := TButton():New(80, 30, "GERAR GETS", oDlg1,{|| EnviarGets()}, 60,15,,,.F.,.T.,.F.,,.F.,,,.F. )  
+
+//Grupo 2
+oGroup2:= tGroup():New(110,010,200,200,"Grupo 2",oDlg1,,,.T.)                                                   /*READONLY PARAMETRO 21*/
+oGet3   := TGet():New(130,30,{|u| IIF(Pcount()>0,cGet3:=u,cGet3)},oGroup1,100,10,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.T.,.F.,,cGet3,,,, )     
+oGet4   := TGet():New(150,30,{|u| IIF(Pcount()>0,cGet4:=u,cGet4)},oGroup1,100,10,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.T.,.F.,,cGet4,,,, )
+oButton2 := TButton():New(180, 30, "FECHAR", oDlg1,{|| oDlg1:End()}, 60,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+
+oDlg1:Activate(,,,.T.)
+
+return
+
+
+/*/{Protheus.doc} EnviarGets
+Esta static function realiza a atualização dos gets
+@type function
+@version 
+@author Placido
+@since 24/09/2020
+@return return_type, return_description
+/*/
+Static Function EnviarGets()
+cGet3 := cGet1
+cGet4 := cGet2
+
+oGet3:Refresh()
+oGet4:Refresh()
+return
