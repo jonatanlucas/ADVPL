@@ -1,0 +1,20 @@
+#include 'Protheus.ch'
+
+
+/*/{Protheus.doc} A010TOK
+Ponto de entrada para impedir a inclusão ou alteração dos produtos
+com os grupos 0010/0011/0012
+@type function
+@version  
+@author jonatan.lucas
+@since 18/06/2022
+@return variant, return_description
+/*/
+User Function A010TOK()
+Local lRet := .T.
+
+IF Incluiu //Variável Inclui e Altera
+    lRet := u_A010TOKVALID(M->B1_GRUPO) //Recebe .T. True ou .F. False
+ENDIF
+
+return(lRet)
