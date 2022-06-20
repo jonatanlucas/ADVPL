@@ -1,0 +1,51 @@
+#include 'totvs.ch'
+#include 'protheus.ch'
+
+User Function zMsAdvsize()
+
+Local oDlg1 //Variável que receberá a chamada da classe TDialog
+Local cTituloJanela := "Utilitarios do Protheus"
+Local oButton1 //Variável que armazenará a classe do primeiro botão (se tornando um objeto)
+Local oButton2 // Variável que armazenará a classe do segundo botão (se tornando um objeto)
+Local oButton3 // Variável que armazenará a classe terceiro
+Local oButton4
+Local oButton5
+Local oSay1 //Variável que armazenará a Say
+Local oSay2
+Local oSay3
+Local oSay4
+Local oSaySize
+Local aSize := MsAdvsize() // Função interna que retorna 
+Local cSize7, cSize1, cSize6, cSize5
+
+cSize7 := cValTochar(aSize[7])
+cSize1 := cValTochar(aSize[1])
+cSize6 := cValTochar(aSize[6])
+cSize5 := cValTochar(aSize[5])
+
+
+oDlg1     :=  TDialog():New(aSize[7],aSize[1],aSize[6],aSize[5],cTituloJanela,,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+
+/*
+ 1° Coordenada verifcal
+ 2° Cordenada horizontal
+ 3° Titulo do botão
+ 4° Elemento onde ele será fixado
+ 5º Ação executada ao clicar no botão com o botão esquerdo do Mouse
+*/
+
+oSay1     :=  TSay():New(20,60,{||'Clique aqui para abrir a tela de clientes'},oDlg1,,oFont,,,,.T.,CLR_RED,CLR_WHITE,200,20)
+oButton1  :=  TButton():New( 20, 20, "Clientes",oDlg1,{||Mata030()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. )  //Chama tela de Clientes
+oSay2     :=  TSay():New(40,80,{||'Clique aqui para abrir a tela de fornecedores'},oDlg1,,oFont,,,,.T.,CLR_RED,CLR_WHITE,200,20)
+oButton2  :=  TButton():New( 40, 40, "Fornecedores",oDlg1,{||Mata020()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) //Chama tela de fornecedores
+oSay3     :=  TSay():New(60,100,{||'Clique aqui para abrir a tela de bancos'},oDlg1,,oFont,,,,.T.,CLR_RED,CLR_WHITE,200,20)
+oButton3  :=  TButton():New( 60, 60, "Bancos",oDlg1,{||Mata070()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oSay4    :=  TSay():New(80,120,{||'Clique aqui para abrir a tela de produtos'},oDlg1,,oFont,,,,.T.,CLR_RED,CLR_WHITE,200,20)
+oButton4  :=  TButton():New( 80, 80, "Produtos",oDlg1,{||Mata010()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oButton5  :=  TButton():New(100, 100, "Fechar",oDlg1,{||oDlg1:End()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oSaySize :=  TSay():New(120,20,{||cSize7+"  "+cSize1+"  "+cSize6+"  "+cSize5},oDlg1,,oFont,,,,.T.,CLR_RED,CLR_WHITE,200,20)
+
+oDlg1:ACTIVATE(,,,.F.)
+
+
+return
