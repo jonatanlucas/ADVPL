@@ -33,7 +33,7 @@ Private nSexo := 1
 Private oRadioSexo
 
 Private oSayEstCivil
-Private aEstCivil := {"Solteiro","Casado","Protheuzando","Codificando","Vagando na net","Só no Insta","O pai tá on","A mãe tá on"}
+Private aEstCivil := {"Solteiro","Casado","Protheuzando","Codificando","Vagando na net","SÃ³ no Insta","O pai tÃ¡ on","A mÃ£e tÃ¡ on"}
 Private cEstCivil := aEstCivil[3]
 Private oComboEstCivil
 
@@ -86,7 +86,7 @@ Reclock("SZ9",.T.)
     SZ9->Z9_SEXO        := cValToChar(nSexo)
 MsUnlock()
 
-MsgInfo("Registro incluído com sucesso!")
+MsgInfo("Registro incluÃ­do com sucesso!")
 
 DBCloseArea("SZ9")
 Return 
@@ -115,7 +115,7 @@ IF DbSeek(xFilial("SZ9")+cGetCodigo)
 
     MsgInfo("Registro Localizado!","Sucesso")
 else
-    Alert("Registro Não Localizado","Atenção")
+    Alert("Registro NÃ£o Localizado","AtenÃ§Ã£o")
 Endif
 
 DBCloseArea("SZ9")
