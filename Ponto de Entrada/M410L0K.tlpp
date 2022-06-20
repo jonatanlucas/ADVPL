@@ -1,0 +1,40 @@
+#include 'Protheus.ch'
+
+/*/{Protheus.doc} M410L0K
+description
+@type function
+@version  
+@author jonatan.lucas
+@since 19/06/2022
+@return variant, return_description
+/*/
+User Function M410L0K()
+Local lRet := .T.
+Local nCount // Variavel de Controle do For do Acols
+Local nContarIguais := 0 //Conta o número de linhas com o mesmo Item
+
+//SC5 - Tabela do cabeçalho do pedido de venda 
+//SC6 - Tabela dos itens do pedido de venda 
+
+Local nAcolsQTDVen := aScan(aHeader,{|x|AllTrim(x[2]) == "C6_QTDVEN"}) // BUSCA A POSIÇÃO DA COLUNA REFERENTE À C6_QTDVEN/QUANTIDADE VENDIDA
+Local nQTDVEN := aCols[n,AcolsQTDVen]
+
+Local nAcolsCODProd := aScan(aHeader, {|x| AllTrim(x[2]) == "C6_PRODUTO"})
+Local cCodProduto := aCols[n,AcolsCODProd]
+
+FOR nCount := 1 to Len(aCols)
+    IF aCols[nCount,nAcolsCODProd] = cCodProduto
+        nContarIguais++
+    ENDIF
+Next nCount
+
+IF nContarIguais > 1
+    lRet := .F.
+    Alert("Não é permitido a inclusão de produtos iguais no mesmo pedido!","OPERAÇÃO NÃO PERMITIDA!")
+ELSE
+    IF nQTDVEN > 10
+    lRet := .F.
+    Alert("Neste Período não estamos permitindo mais de 10 unidades do mesmo item","Quantidade não permitida")
+    ENDIF
+ENDIF
+return lRet

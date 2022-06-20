@@ -1,0 +1,31 @@
+#include 'Protheus.ch'
+
+/*/{Protheus.doc} MT100LOK
+Ponto de entrada utilizado para validar a linha do documento de entrada MATA103.
+Implementado inicialmente para tratar e impedir que itens sejam incclusos com 
+quantidade maior = à 5 e que usem TES diferentes das que estão no parâmetro
+MV_YTESQTD.
+@type User Function
+@version  
+@author jonatan.lucas
+@since 19/06/2022
+@return variant, return_description
+/*/
+User Function MT100LOK()
+Local lRet := .T.
+Local nAcolsTES := aScan(aHeader, {|x| AllTrim(x[2]) == "D1_TES"})
+Local nAcolsQUANT := aScan(aHeader, {|x| AllTrim(x[2]) == "D1_QUANT"})
+                    //n = linha nAcolsTES = coluna
+Local cTES    :=  aCols[n,nAcolsTES]
+Local nQUANT  :=  aCols[n,nAcolsQUANT]
+
+
+    IF nQUANT >= 5 .AND. (cTES$SUPERGETMV("MV_YTESQTD")) //003;004;010
+        lRet := .F.
+        Alert("Para quantidades iguais ou superiores a 5, deve-se usar as TES específicas"+Chr(10)+Chr(13)+;
+        "Consulte o seu setor Financeiro","Alert")
+    ENDIF
+
+
+    
+Return lRet

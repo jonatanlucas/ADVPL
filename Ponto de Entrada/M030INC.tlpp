@@ -1,0 +1,18 @@
+#include 'Protheus.ch'
+
+//Apresentar código de usuário que incluiu o cliente
+User Function M030INC()
+
+Local aArea := GetArea()
+
+IF PARAMIXB <> 3
+    MsgInfo("Você acabou de inserir com sucesso o Cliente:"+Chr(10)+Chr(13)+M->A1_NOME)
+
+    Reclock("SA1",.F.)
+        SA1->A1_XUSRINC := RetCodUsr() //__CUserID
+    MsUnlock()
+ENDIF
+
+Restarea(aArea)
+
+return

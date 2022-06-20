@@ -1,0 +1,20 @@
+#include 'Protheus.ch'
+
+/*/{Protheus.doc} M030DEL
+Bloqueia a exclusão de clientes que sejam Pessoas Jurídicas
+@type function
+@version  
+@author jonatan.lucas
+@since 18/06/2022
+@return variant, return_description
+/*/
+User Function M030DEL()
+Local lRet := .T. //Se .F. não deixa excluir, se .T. deixa excluir
+Local aArea := GetArea()
+
+IF SA1->A1_PESSOA = "J"
+    lRet := .F.
+    Alert("Não é possível excluir o cliente, Pessoa Jurídica")
+ENDIF
+
+return(lRet)
