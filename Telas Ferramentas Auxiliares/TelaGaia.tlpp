@@ -1,0 +1,102 @@
+#Include "PROTHEUS.CH"
+#Include "HBUTTON.CH"
+
+
+/*/{Protheus.doc} TelaGaia
+description
+@type function
+@version 
+@author Placido
+@since 05/10/2020
+@return return_type, return_description
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=24346988
+@see https://tdn.totvs.com/display/tec/TDialog
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=24347069
+@see https://tdn.totvs.com/display/tec/TSay
+@see https://tdn.totvs.com/display/tec/@+...+GET
+@see https://tdn.totvs.com/display/tec/TGet
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=23889154
+@see https://tdn.totvs.com/display/tec/TButton
+@see https://tdn.totvs.com/display/tec/TSpinBox
+@see https://tdn.totvs.com/display/tec/TSlider
+@see https://tdn.totvs.com/display/tec/MsCalend
+/*/
+User Function TelaGaia()                        
+Local oBitmap1
+Local oBitmap2
+Local oBitmap3
+Local oBitmap4
+Local oButtonNome
+Local oCheckADVPL
+Local lCheckADVPL := .T.
+Local oCheckCSharp
+Local lCheckCSharp := .F.
+Local oCheckPython
+Local lCheckPython := .F.
+Local oCheckSQL
+Local lCheckSQL := .F.
+Local oComboEstado
+Local nComboEstado := 1
+Local oFolder1
+Local oFont1 := TFont():New("Monotype Corsiva",,020,,.F.,,,,,.F.,.T.)
+Local oFont2 := TFont():New("Arial Rounded MT Bold",,018,,.F.,,,,,.F.,.F.)
+Local oGetBairro
+Local cGetBairro := "Define variable value"
+Local oGetEndereco
+Local cGetEndereco := "Define variable value"
+Local oGetNome
+Local cGetNome := "Define variable value"
+Local oGetNomeReduzido
+Local cGetNomeReduzido := "Define variable value"
+Local oGroupImovel
+Local oGroupLinguagens
+Local oMsCalen1
+Local oMultObser
+Local cMultObser := "Define variable value"
+Local oRadMenu1
+Local nRadMenu1 := 1
+Local oSayBairro
+Local oSayEndereco
+Local oSayEstado
+Local oSayNome
+Local oSayNomeReduz
+Local oSayObservacao
+Local oSlider1
+Local oSpinBox1
+Static oDlg1
+
+  DEFINE MSDIALOG oDlg1 TITLE "CADASTRO DE PROTHEUZEIRO" FROM 000, 000  TO 500, 800 COLORS 0, 16777215 PIXEL
+
+    @ 001, -001 FOLDER oFolder1 SIZE 389, 154 OF oDlg1 ITEMS "Cadastrais","Endereço","Outros" COLORS 0, 16777215 PIXEL
+    @ 002, 007 SAY oSayEndereco PROMPT "Endereço" SIZE 049, 007 OF oFolder1:aDialogs[2] FONT oFont2 COLORS 255, 16777215 PIXEL
+    @ 012, 007 MSGET oGetEndereco VAR cGetEndereco SIZE 060, 010 OF oFolder1:aDialogs[2] COLORS 0, 16777215 PIXEL
+    @ 002, 079 SAY oSayBairro PROMPT "Bairro" SIZE 025, 007 OF oFolder1:aDialogs[2] FONT oFont2 COLORS 255, 16777215 PIXEL
+    @ 011, 079 MSGET oGetBairro VAR cGetBairro SIZE 060, 010 OF oFolder1:aDialogs[2] COLORS 0, 16777215 PIXEL
+    @ 012, 148 MSCOMBOBOX oComboEstado VAR nComboEstado ITEMS {"AC","AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PR","RJ","RN","RO","RS","RR","SC","SE","SP","TO"} SIZE 072, 010 OF oFolder1:aDialogs[2] COLORS 0, 16777215 PIXEL
+    @ 002, 148 SAY oSayEstado PROMPT "Estado" SIZE 048, 006 OF oFolder1:aDialogs[2] FONT oFont2 COLORS 255, 16777215 PIXEL
+    @ 005, 226 GROUP oGroupImovel TO 064, 319 PROMPT "Tipo de Imóvel" OF oFolder1:aDialogs[2] COLOR 0, 16777215 PIXEL
+    @ 015, 235 RADIO oRadMenu1 VAR nRadMenu1 ITEMS "Casa","Apartamento","Flat","Chácara","Outros" SIZE 057, 044 OF oFolder1:aDialogs[2] COLOR 0, 16777215 PIXEL
+    @ 006, 004 GROUP oGroupLinguagens TO 062, 089 PROMPT "Linguagens que programa" OF oFolder1:aDialogs[3] COLOR 0, 16777215 PIXEL
+    @ 015, 010 CHECKBOX oCheckADVPL VAR lCheckADVPL PROMPT "ADVPL" SIZE 048, 008 OF oFolder1:aDialogs[3] COLORS 0, 16777215 PIXEL
+    @ 025, 010 CHECKBOX oCheckSQL VAR lCheckSQL PROMPT "SQL" SIZE 048, 008 OF oFolder1:aDialogs[3] COLORS 0, 16777215 PIXEL
+    @ 035, 010 CHECKBOX oCheckCSharp VAR lCheckCSharp PROMPT "c#" SIZE 048, 008 OF oFolder1:aDialogs[3] COLORS 0, 16777215 PIXEL
+    @ 045, 010 CHECKBOX oCheckPython VAR lCheckPython PROMPT "Python" SIZE 048, 008 OF oFolder1:aDialogs[3] COLORS 0, 16777215 PIXEL
+    @ 010, 099 GET oMultObser VAR cMultObser OF oFolder1:aDialogs[3] MULTILINE SIZE 092, 044 COLORS 0, 16777215 HSCROLL PIXEL
+    @ 000, 100 SAY oSayObservacao PROMPT "Observacao" SIZE 034, 007 OF oFolder1:aDialogs[3] COLORS 0, 16777215 PIXEL
+    @ 012, 199 SPINBOX oSpinBox1 SIZE 037, 010 OF oFolder1:aDialogs[3]
+    oMsCalen1 := MsCalend():New(013, 250, oFolder1:aDialogs[3], .T.)
+    oMsCalen1:dDiaAtu := CtoD("05/10/2020")
+    @ 092, 149 SLIDER oSlider1 SIZE 075, 022 OF oFolder1:aDialogs[3]
+    @ 001, 004 SAY oSayNome PROMPT "Nome" SIZE 025, 007 OF oFolder1:aDialogs[1] FONT oFont1 COLORS 16711680, 16777215 PIXEL
+    @ 012, 004 MSGET oGetNome VAR cGetNome SIZE 060, 010 OF oFolder1:aDialogs[1] COLORS 0, 16777215 ON CHANGE {|u| If(PCount()>0,cGetNome:=u,cGetNome)} PIXEL
+    @ 002, 078 SAY oSayNomeReduz PROMPT "Nome Reduzido" SIZE 053, 007 OF oFolder1:aDialogs[1] FONT oFont1 COLORS 16711680, 16777215 PIXEL
+    @ 010, 078 MSGET oGetNomeReduzido VAR cGetNomeReduzido SIZE 060, 010 OF oFolder1:aDialogs[1] COLORS 0, 16777215 PIXEL
+    @ 065, 006 BUTTON oButtonNome PROMPT "Mostrar Nome" SIZE 053, 012 OF oFolder1:aDialogs[1] ACTION (MsgInfo("NOME: "+cGetNome,"Este é o nome")) PIXEL
+    @ 085, 059 BITMAP oBitmap1 SIZE 031, 029 OF oFolder1:aDialogs[1] FILENAME "C:\totvs\protheus_data\system\alterarprotheuzeiro.bmp" NOBORDER PIXEL
+    @ 084, 016 BITMAP oBitmap2 SIZE 033, 038 OF oFolder1:aDialogs[1] FILENAME "C:\totvs\protheus_data\system\incluirprotheuzeiro.bmp" NOBORDER PIXEL
+    @ 083, 138 BITMAP oBitmap3 SIZE 028, 031 OF oFolder1:aDialogs[1] FILENAME "C:\totvs\protheus_data\system\excluirprotheuzeiro.bmp" NOBORDER PIXEL
+    @ 083, 099 BITMAP oBitmap4 SIZE 029, 036 OF oFolder1:aDialogs[1] FILENAME "C:\totvs\protheus_data\system\consultarprotheuzeiro.bmp" NOBORDER PIXEL
+
+  ACTIVATE MSDIALOG oDlg1 CENTERED
+
+Return
