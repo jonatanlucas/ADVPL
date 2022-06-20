@@ -1,0 +1,21 @@
+#include 'Protheus.ch'
+
+/*/{Protheus.doc} A010TOKVALID
+Função auxiliar que verifica se é possível ou não inserir o produto no grupo escolhido
+@type function
+@version  
+@author jonatan.lucas
+@since 18/06/2022
+@param cGrupo, character, param_description
+@return variant, return_description
+/*/
+User Function A010TOKVALID(cGrupo)
+Local lReturn := .T.
+
+IF cGrupo $ "0010/0011/0012"
+    lReturn := .F.
+    Alert("Inclusão não permitida, devido ao código do grupo"+cGrupo+"!"+Chr(10)+Chr(13)+;
+    "Os grupos devem ser diferentes de 0010/0011/0012.","Atenção")
+ENDIF
+
+return(lReturn)
