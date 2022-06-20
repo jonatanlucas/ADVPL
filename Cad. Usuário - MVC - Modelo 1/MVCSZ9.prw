@@ -16,7 +16,7 @@
     /*/
 User Function MVCSZ9()
 Local aArea := GetArea() 
-Local oBrowseSZ9 //Variùvel Objeto que receberù o instanciamento da classe FwmBrose
+Local oBrowseSZ9 //Vari¬ùvel Objeto que receber¬ù o instanciamento da classe FwmBrose
 
 oBrowseSZ9 := FwmBrowse():New()
 
@@ -25,10 +25,10 @@ oBrowseSZ9:SetAlias("SZ9")
 
 oBrowseSZ9:SetDescription("Meu primeiro Browse - Tela de Protheuzeiros SZ9")
 
-//Faz com que somente estes campos apareùam no GRID;
+//Faz com que somente estes campos apare¬ùam no GRID;
 //oBrowseSZ9:SetOnlyFields({"Z9_CODIGO","Z9_NOME","Z9_SEXO","Z9_STATUS"}) 
 
-                    /*EXPRESSAO             / COR    / DESCRIùùO*/
+                    /*EXPRESSAO             / COR    / DESCRI¬ù¬ùO*/
 oBrowseSZ9:AddLegend("SZ9->Z9_STATUS == '1'","GREEN", "Protheuzeiro Ativo")
 oBrowseSZ9:AddLegend("SZ9->Z9_STATUS == '2'","RED"  , "Protheuzeiro Inativo")
 
@@ -59,12 +59,12 @@ Static Function MenuDef()
 Local aRotina       := {}
 Local aRotinaAut    := FwMvcMenu("MVCSZ9") //Recebe os menus automaticamente
 
-//Populo a variùvel aRotina
+//Populo a vari¬ùvel aRotina
 ADD OPTION aRotina TITLE 'Legenda'      ACTION 'u_SZ9LEG'         OPERATION 6 ACCESS 0
 ADD OPTION aRotina TITLE 'Sobre'        ACTION 'u_SZ9SOBRE'       OPERATION 6 ACCESS 0
 
 
-//Adiciona dentro do array aRotina, o conteùdo do array aRotinaAut
+//Adiciona dentro do array aRotina, o conte¬ùdo do array aRotinaAut
 For n := 1 To Len(aRotinaAut)
     aAdd(aRotina,aRotinaAut[n])
 Next n
@@ -79,7 +79,7 @@ Static function ModelDef do meu programa em MVC
     @since 06/01/2021
     @version version
     @param , param_type, param_descr
-    @return oModel, Objeto, Objeto da funùùo MVC meu modelo de Dados
+    @return oModel, Objeto, Objeto da fun¬ù¬ùo MVC meu modelo de Dados
     @example
     (examples)
     @see (links_or_references)
@@ -87,7 +87,7 @@ Static function ModelDef do meu programa em MVC
 Static Function ModelDef()
 Local oModel := Nil
 
-//traz a estrutura da SZ9(tabela e caracterùstica dos campos), PARA O MODELO, por isso o parametro 1 no inùcio
+//traz a estrutura da SZ9(tabela e caracter¬ùstica dos campos), PARA O MODELO, por isso o parametro 1 no in¬ùcio
 Local oStructSZ9 := FwFormStruct(1,"SZ9") 
 
 oModel := MPFormModel():New("MVCSZ9M",/*bPre*/, /*bPos*/,/*bCommit*/,/*bCancel*/)
@@ -95,12 +95,12 @@ oModel := MPFormModel():New("MVCSZ9M",/*bPre*/, /*bPos*/,/*bCommit*/,/*bCancel*/
 //Atribuindo formulario para o modelo de dados.
 oModel:AddFields("FORMSZ9",/*Owner*/,oStructSZ9)
 
-//Definindo chave primùria para a aplicaùùo
+//Definindo chave prim¬ùria para a aplica¬ù¬ùo
 oModel:SetPrimaryKey({"Z9_FILIAL","Z9_CODIGO"})
 
 oModel:SetDescription("Modelo de Dados do Cadastro de Protheuzeiro(a)")
 
-oModel:GetModel("FORMSZ9"):SetDescription("Formulùrio de Cadastro Protheuzeiro(a)")
+oModel:GetModel("FORMSZ9"):SetDescription("Formul¬ùrio de Cadastro Protheuzeiro(a)")
 
 Return oModel
 
@@ -125,25 +125,25 @@ Local oModel := FwLoadModel("MVCSZ9")
 
 Local oStructSZ9 := FwFormStruct(2,"SZ9") //Traz a estrutura da SZ9 - (1 Model | 2 View)
 
-//Removendo campo para o USUùRIO
+//Removendo campo para o USU¬ùRIO
 oStructSZ9:RemoveField("Z9_ESTCIV")
 
-//Construindo a parte de Visùo dos Dados
+//Construindo a parte de Vis¬ùo dos Dados
 oView := FwFormView():New()
 
 //Passando o modelo de dados informado
 oView:SetModel(oModel)
 
-//Atribuiùùo da estrutura de dados ù camada de VISùO
+//Atribui¬ù¬ùo da estrutura de dados ¬ù camada de VIS¬ùO
 oView:AddField("VIEWSZ9",oStructSZ9,"FORMSZ9")
 
 //Criando um container com o identificador TELA
 oView:CreateHorizontalBox("TELASZ9",100)
 
-//Adicionando titulo ao formulùrio
-oView:EnableTitleView("VIEWSZ9","Visualizaùùo dos Protheuzeiros(as)")
+//Adicionando titulo ao formul¬ùrio
+oView:EnableTitleView("VIEWSZ9","Visualiza¬ù¬ùo dos Protheuzeiros(as)")
 
-//forùa o fechamento da janela, PASSANDO O PARAMETRO .T.
+//for¬ùa o fechamento da janela, PASSANDO O PARAMETRO .T.
 oView:SetCloseOnOk({|| .T.})
 
 oView:SetOwnerView("VIEWSZ9","TELASZ9")
