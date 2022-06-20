@@ -1,0 +1,125 @@
+#include 'Totvs.ch'
+#include 'Protheus.ch'
+
+/*/{Protheus.doc} User Function CADPROTHEUZEIRO
+    (long_description)
+    @type  Function
+    @author user
+    @since 17/11/2020
+    @version version
+    @param , param_type, param_descr
+    @return , return_type, return_description
+    @example
+    (examples)
+    @see (links_or_references)
+    /*/
+User Function CADPROTHEUZEIRO()
+Local oJanela //Variável que receberá a chamada da classe TDialog
+
+Private oSayCodigo
+Private oGetCodigo
+Private cGetCodigo as char
+
+Private oSayNome
+Private oGetNome
+Private cGetNome as char
+
+Private oSaySexo
+Private aSexo := {"Masculino","Feminino"}
+Private nSexo  := 1 
+Private oRadioSexo
+
+
+Private oSayEstCivil
+Private aEstCivil := {"Solteiro","Casado","Protheuzando","Codificando","Vagando na net","Só no Insta","O pai tá on","A mãe tá on"}
+Private cEstCivil  := aEstCivil[3]
+Private oComboEstCivil
+
+
+//PARAMETROS             1   2    3     4          5          6  7  8  9   10         11     12  13  14         
+oJanela := TDialog():New(0,  0,  500,  700, 'Cadastro de Protheuzeiro',  ,  ,  , , CLR_BLACK,CLR_WHITE,  ,   , .T.)
+
+oSayCodigo      := TSay():New(01,05,{||'Codigo'},oJanela,,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetCodigo      := Space(6)
+oGetCodigo      := TGet():New( 10,05,{|u| IIF(Pcount()>0,cGetCodigo:=u,cGetCodigo)},oJanela,40,009,"@E 999999",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetCodigo,,,, )
+
+oSayNome        := TSay():New(25,05,{||'Nome'},oJanela,,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetNome        := Space(30)
+oGetNome        := TGet():New( 35,05,{|u| IIF(Pcount()>0,cGetNome:=u,cGetNome)},oJanela,096,009,"@!",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetNome,,,, )
+
+oSaySexo        := TSay():New(25,110,{||'Sexo'},oJanela,,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+oRadioSexo      := tRadMenu():New(35,110,aSexo,{|u| iif(PCount()>0,nSexo :=u,nSexo )},oJanela,,,,,,,,60,20,,,,.T.)
+
+oSayEstCivil    := TSay():New(25,180,{||'Estado Civil'},oJanela,,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+oComboEstCivil  := tComboBox():New(35,180,{|u|if(PCount()>0,cEstCivil:=u,cEstCivil)},aEstCivil,65,20,oJanela,,/**/,,,,.T.,,,,,,,,,'cCombo')
+
+oButtonIncluir    := TButton():New(60, 05, "Incluir",      oJanela,{|| IncluirSZ9()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oButtonConsultar  := TButton():New(60, 60, "Consultar",    oJanela,{|| ConsultarSZ9()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+
+
+oJanela:Activate(,,,.T.)
+
+Return 
+
+
+/*/{Protheus.doc} IncluirSZ9
+    (long_description)
+    @type  Static Function
+    @author user
+    @since 17/11/2020
+    @version version
+    @param param_name, param_type, param_descr
+    @return return_var, return_type, return_description
+    @example
+    (examples)
+    @see (links_or_references)
+    /*/
+Static Function IncluirSZ9()
+
+DbSelectArea("SZ9")
+
+Reclock("SZ9",.T.)
+    SZ9->Z9_CODIGO      := cGetCodigo
+    SZ9->Z9_NOME        := cGetNome
+    SZ9->Z9_ESTCIV      := cEstCivil
+    SZ9->Z9_SEXO        := cValToChar(nSexo)
+MsUnlock()
+
+MsgInfo("Registro incluído com sucesso!")
+
+DBCloseArea("SZ9")
+
+
+Return 
+
+
+/*/{Protheus.doc} ConsultarSZ9
+    (long_description)
+    @type  Static Function
+    @author user
+    @since 17/11/2020
+    @version version
+    @param param_name, param_type, param_descr
+    @return return_var, return_type, return_description
+    @example
+    (examples)
+    @see (links_or_references)
+    /*/
+Static Function ConsultarSZ9()
+
+DbSelectArea("SZ9")
+DbSetOrder(1)
+
+IF DbSeek(xFilial("SZ9")+cGetCodigo)
+    cGetNome    :=  SZ9->Z9_NOME
+    cEstCivil   :=  SZ9->Z9_ESTCIV 
+    nSexo       :=  Val(SZ9->Z9_SEXO)
+
+    MsgInfo("Registro Localizado!","Sucesso")
+else
+    Alert("Registro Não Localizado","Atenção")
+Endif
+
+DBCloseArea("SZ9")
+
+Return 
