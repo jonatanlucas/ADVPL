@@ -1,0 +1,542 @@
+#include 'TOTVS.CH'
+#include 'Protheus.ch'
+#include 'Topconn.ch'
+
+
+/*/{Protheus.doc} Projeto02
+Cria uma tela funcional com 3 abas e diversos elementos visuais
+@type function
+@version 
+@author Jonatan
+@since 18/06/2022
+@return return_type, return_description
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=23889301
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=24347041
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=23889268
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=24347107
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=27675626
+@see https://tdn.totvs.com/display/tec/StrTran
+/*/
+User Function  Projet002()
+
+Private oDlg1
+Private cTituloJanela := "PROJETO02- CADASTRO DE PROTHEUZEIRO"
+
+//Declarar as variáveis do Folder/Pasta
+Private oFolder
+Private aFolder
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Variáveis referentes aos objetos do FOLDER01(DADOSPESSOAIS)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+Private oSayCodigo
+Private oGetCodigo
+Private cGetCodigo
+
+Private oSayNome
+Private oGetNome
+Private cGetNome
+
+Private oSayNomeReduz
+Private oGetNomeReduz
+Private cGetNomeReduz
+
+Private oSayDatNasc
+Private oGetDatNasc
+Private dGetDatNasc //Variável será tipo Data/Date
+
+Private oSayDDDCel
+Private oGetDDDCel
+Private cGetDDDCel
+
+Private oSayCEL
+Private oGetCEL
+Private cGetCEL
+
+Private oGroupSexo //Agrupador de elementos que receberá os RadioButtons de Sexo
+                   //   1          2
+Private aSexo := {"Masculino","Feminino"}
+Private nSexo  := 2
+Private oRadioSexo
+
+Private oSayCPf
+Private oGetCPF
+Private cGetCPF
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Variáveis referentes aos objetos do FOLDER02(ENDEREÇO)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+Private oSayEndereco
+Private oGetEndereco
+Private cGetEndereco
+
+Private oSayBairro
+Private oGetBairro
+Private cGetBairro
+
+Private oSayImovel
+Private aImoveis       := {"Casa","Apartamento","Outro"}
+Private cImovel        := aImoveis[2]
+Private oComboImovel
+
+Private oSayCEP
+Private oGETCEP
+Private cGetCEP
+
+Private oSayEstado
+Private aEstados      := {"AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO"}
+Private cEstados      := aEstados[5]
+Private oComboEstado
+
+Private oSayCidade
+Private oGetCidade
+Private cGetCidade
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/Variáveis referentes aos objetos do FOLDER03(OUTROS)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+Private oSayEstCivil
+Private aEstCivil := {"Solteiro","Namorando","Casado","Protheuzando","Codificando","Vagando na net","Só no Insta","O pai tá on","Casado com Protheus","Namorando ADVPL"}
+Private cEstCivil  := aEstCivil[4]
+Private oComboEstCivil
+
+Private oGroupPet
+
+Private aPet := {"Sim","Não"}
+Private nPet  := 2
+Private oRadioPet
+
+Private oGroupLinguagens
+
+Private oCheckAdvpl
+Private oCheckSQL
+Private oCheckCSHARP
+Private oCheckPython
+
+Private lCheckAdvpl   := .F.
+Private lCheckSQL     := .F.    
+Private lCheckCSHARP  := .F.    
+Private lCheckPython  := .F.  
+
+Private oButtonMarkAll
+Private oButtonUnMarkAll
+
+Private oSayObservacao
+Private cObservacao
+Private oTMultigetObservacao
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Variáveis de elementos que estão fora das ABAS/FOLDER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+Private oButtonIncluir
+Private oButtonAlterar
+Private oButtonConsultar
+Private oButtonExcluir
+
+Private oButtonSair
+Private oButtonLimparTela
+
+
+Private oBmpIncluir
+Private oBmpAlterar
+Private oBmpConsultar
+Private oBmpExcluir
+
+Private oBmpSair
+Private oBmpLimparTela
+
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+COMEÇO À CONSTRUIR A TELA DAQUI PARA BAIXO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+oDlg1       := TDialog():New(0,0,720,1280,cTituloJanela,,,,,CLR_BLACK,CLR_WHITE,,,.T.)
+
+aFolder := {"Dados Pessoais","Endereço","Outros"}
+oFolder := TFolder():New(0,0,aFolder,aFolder,oDlg1,,,, .T.,, 600,200 )
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Elementos visuais que compõem o FOLDER/PASTA01 DADOS PESSOAIS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+oSayCodigo     := TSay():New(01,05,{||'Codigo'},oFolder:aDialogs[1],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetCodigo     := Space(6)
+oGetCodigo     := TGet():New( 10,05,{|u| IIF(Pcount()>0,cGetCodigo:=u,cGetCodigo)},oFolder:aDialogs[1],40,009,"@ 999999",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetCodigo,,,, )
+oGetCodigo:cF3 := "SZ1"
+
+
+oSayNome         := TSay():New(25,05,{||'Nome'},oFolder:aDialogs[1],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetNome         := Space(30)
+oGetNome         := TGet():New( 35,05,{|u| IIF(Pcount()>0,cGetNome:=u,cGetNome)},oFolder:aDialogs[1],096,009,"",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetNome,,,, )
+
+oSayNomeReduz    := TSay():New(25,110,{||'Nome Reduzido'},oFolder:aDialogs[1],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetNomeReduz    := Space(20)
+oGetNomeReduz    := TGet():New( 35,110,{|u| IIF(Pcount()>0,cGetNomeReduz:=u,cGetNomeReduz)},oFolder:aDialogs[1],60,009,"",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetNomeReduz,,,, )
+
+oSayDatNasc    := TSay():New(25,180,{||'Data de Nascimento'},oFolder:aDialogs[1],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+dGetDatNasc    := Date() //Função que traz a data atual
+oGetDatNasc    := TGet():New( 35,180,{|u|if(PCount()>0,dGetDatNasc:=u,dGetDatNasc)},oFolder:aDialogs[1],60,009,,,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,/**/,,,,.T. )
+
+oSayDDDCel    := TSay():New(25,250,{||'DDD Cel.'},oFolder:aDialogs[1],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetDDDCel    := Space(4)
+oGetDDDCel    := TGet():New( 35,250,{|u| IIF(Pcount()>0,cGetDDDCel:=u,cGetDDDCel)},oFolder:aDialogs[1],20,009,"@E (99)",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetDDDCel,,,, )
+
+oSayCEL       := TSay():New(25,280,{||'Celular'},oFolder:aDialogs[1],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetCEL       := Space(11)
+oGetCEL       := TGet():New( 35,280,{|u| IIF(Pcount()>0,cGetCEL:=u,cGetCEL)},oFolder:aDialogs[1],40,009,"@E 9-9999-9999",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetCEL,,,, )
+
+oGroupSexo    := tGroup():New(25,330,60,430,"Sexo",oFolder:aDialogs[1],,,.T.) //Preste atenção no dimensionamento/tamanho do elemento, este é diferente dos outros
+
+oRadioSexo    := tRadMenu():New(35,340,aSexo,{|u| iif(PCount()>0,nSexo :=u,nSexo )},oFolder:aDialogs[1],,,,,,,,60,20,,,,.T.)
+
+oSayCPf    := TSay():New(50,05,{||'CPF'},oFolder:aDialogs[1],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetCPF    := Space(14)
+oGetCPF    := TGet():New( 60,05,{|u| IIF(Pcount()>0,cGetCPF:=u,cGetCPF)},oFolder:aDialogs[1],096,009,"@E 999.999.999-99",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetCPF,,,, )
+
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Elementos visuais que compõem o FOLDER/PASTA02 ENDEREÇO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+oSayEndereco     := TSay():New(01,05,{||'Endereço'},oFolder:aDialogs[2],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetEndereco     := Space(30)
+oGetEndereco     := TGet():New( 10,05,{|u| IIF(Pcount()>0,cGetEndereco:=u,cGetEndereco)},oFolder:aDialogs[2],096,009,"",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetEndereco,,,, )
+
+oSayBairro       := TSay():New(01,110,{||'Bairro'},oFolder:aDialogs[2],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetBairro       := Space(20)
+oGetBairro       := TGet():New( 10,110,{|u| IIF(Pcount()>0,cGetBairro:=u,cGetBairro)},oFolder:aDialogs[2],60,009,"",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetBairro,,,, )
+
+oSayImovel       := TSay():New(01,180,{||'Tipo de Imóvel'},oFolder:aDialogs[2],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+oComboImovel     := tComboBox():New(010,180,{|u|if(PCount()>0,cImovel:=u,cImovel)},aImoveis,60,20,oFolder:aDialogs[2],,,,,,.T.,,,,,,,,,'cImovel')
+
+oSayCEP       := TSay():New(01,250,{||'CEP'},oFolder:aDialogs[2],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetCEP       := Space(9)
+oGETCEP       := TGet():New( 10,250,{|u| IIF(Pcount()>0,cGetCEP:=u,cGetCEP)},oFolder:aDialogs[2],30,009,"@E 99999-999",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetCEP,,,, )
+
+oSayEstado    := TSay():New(25,05,{||'Estado'},oFolder:aDialogs[2],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+oComboEstado  := tComboBox():New(35,05,{|u|if(PCount()>0,cEstados:=u,cEstados)},aEstados,40,20,oFolder:aDialogs[2],,,,,,.T.,,,,,,,,,'cEstado')
+
+oSayCidade     := TSay():New(25,50,{||'Cidade'},oFolder:aDialogs[2],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cGetCidade     := Space(30)
+oGetCidade     := TGet():New( 35,50,{|u| IIF(Pcount()>0,cGetCidade:=u,cGetCidade)},oFolder:aDialogs[2],096,009,"",,0,,,.F.,,.T.,,.F.,,.F.,.F.,,.F.,.F.,,cGetCidade,,,, )
+
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Elementos visuais que compõem o FOLDER/PASTA03 OUTROS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+
+oSayEstCivil       := TSay():New(01,05,{||'Estado Civil'},oFolder:aDialogs[3],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+oComboEstCivil     := tComboBox():New(10,05,{|u|if(PCount()>0,cEstCivil:=u,cEstCivil)},aEstCivil,65,20,oFolder:aDialogs[3],,/**/,,,,.T.,,,,,,,,,'cCombo')
+
+oGroupPet          := tGroup():New(01,80,40,140,"Possui Pet?",oFolder:aDialogs[3],,,.T.)
+oRadioPet          := tRadMenu():New(10,85,aPet,{|u| iif(PCount()>0,nPet :=u,nPet )},oFolder:aDialogs[3],,,,,,,,30,20,,,,.T.)
+
+oGroupLinguagens   := tGroup():New(01,150,55,250,"Linguagens que domina:",oFolder:aDialogs[3],,,.T.)
+
+oCheckADVPL         := TCheckBox():New(10,160,'ADVPL',{|| lCheckADVPL},oFolder:aDialogs[3],100,210,,{|| lCheckADVPL := !lCheckADVPL},,,,,,.T.,,,)
+
+oCheckSQL           := TCheckBox():New(20,160,'SQL',,oFolder:aDialogs[3],100,210,,,,,,,,.T.,,,)
+oCheckSQL:bSetGet   := {|| lCheckSQL}
+oCheckSQL:bLClicked := {|| lCheckSQL := !lCheckSQL}
+
+oCheckCSHARP            := TCheckBox():New(30,160,'CSharp',,oFolder:aDialogs[3],100,210,,,,,,,,.T.,,,)
+oCheckCSHARP:bSetGet    := {|| lCheckCSHARP}
+oCheckCSHARP:bLClicked  := {|| lCheckCSHARP := !lCheckCSHARP}
+
+oCheckPython            := TCheckBox():New(40,160,'Python',,oFolder:aDialogs[3],100,210,,,,,,,,.T.,,,)
+oCheckPython:bSetGet    := {|| lCheckPython}
+oCheckPython:bLClicked  := {|| lCheckPython := !lCheckPython}
+
+oButtonMarkAll   := TButton():New(15, 200, "Todas", oFolder:aDialogs[3],;
+{|| lCheckADVPL := .T.,lCheckSQL := .T., lCheckCSHARP := .T., lCheckPython := .T.}, 40,10,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+
+oButtonUnMarkAll   := TButton():New(30, 200, "Nenhuma", oFolder:aDialogs[3],;
+{|| lCheckADVPL := .F.,lCheckSQL := .F., lCheckCSHARP := .F., lCheckPython := .F.}, 40,10,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+
+oSayObservacao       := TSay():New(01,270,{||'Observacao'},oFolder:aDialogs[3],,,,,,.T.,CLR_BLUE,CLR_WHITE,300,20)
+cObservacao          := "Digite aqui as características de Protheuzeiro que te definem"
+oTMultigetObservacao := TMultiget():New(10,270, {|u|if(pCount()>0,cObservacao := u, cObservacao) }, oFolder:aDialogs[3], 200, 100, , , , , , .T. )
+
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Elementos visuais FORA DO FOLDER/ABAS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+
+oBmpIncluir := TBitmap():New(220,30,142,142,,"C:\TOTVS12127\Protheus\protheus_data\system\incluirprotheuzeiro.bmp",.T.,oDlg1,{||Alert("Clicou em ImagemIncluir")},,.F.,.F.,,,.F.,,.T.,,.F.)
+oBmpIncluir:lAutoSize := .T.
+
+oBmpAlterar := TBitmap():New(220,90,142,142,,"C:\TOTVS12127\Protheus\protheus_data\system\alterarprotheuzeiro.bmp",.T.,oDlg1,{||Alert("Clicou em ImagemAlterar")},,.F.,.F.,,,.F.,,.T.,,.F.)
+oBmpAlterar:lAutoSize := .T.
+
+oBmpConsultar := TBitmap():New(220,150,142,142,,"C:\TOTVS12127\Protheus\protheus_data\system\consultarprotheuzeiro.bmp",.T.,oDlg1,{||Alert("Clicou em ImagemConsultar")},,.F.,.F.,,,.F.,,.T.,,.F.)
+oBmpConsultar:lAutoSize := .T.
+
+oBmpExcluir := TBitmap():New(220,210,142,142,,"C:\TOTVS12127\Protheus\protheus_data\system\excluirprotheuzeiro.bmp",.T.,oDlg1,{||Alert("Clicou em ImagemExcluir")},,.F.,.F.,,,.F.,,.T.,,.F.)
+oBmpExcluir:lAutoSize := .T.
+
+oBmpLimparTela := TBitmap():New(220,310,142,142,,"C:\TOTVS12127\Protheus\protheus_data\system\limpartela.bmp",.T.,oDlg1,{||Limpatela()},,.F.,.F.,,,.F.,,.T.,,.F.)
+oBmpLimparTela:lAutoSize := .T.
+
+oBmpSair := TBitmap():New(220,370,142,142,,"C:\TOTVS12127\Protheus\protheus_data\system\sair.bmp",.T.,oDlg1,{|| MsgInfo("Obrigado por usar o nosso sistema!","Volte sempre"),oDlg1:End()},,.F.,.F.,,,.F.,,.T.,,.F.)
+oBmpSair:lAutoSize := .T.
+
+
+oButtonIncluir      := TButton():New(250, 20, "Incluir",    oDlg1,{|| IncluirSZ1()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oButtonAlterar      := TButton():New(250, 80, "Alterar",    oDlg1,{|| AlterarSZ1()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oButtonConsultar    := TButton():New(250, 140, "Consultar", oDlg1,{|| BuscarSZ1()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oButtonExcluir      := TButton():New(250, 200, "Excluir",   oDlg1,{|| DeletarSZ1()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+
+oButtonLimparTela   := TButton():New(250, 300, "Limpar Tela",oDlg1,{|| LimpaTela()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+oButtonSair         := TButton():New(250, 360, "Sair",       oDlg1,{|| oDlg1:End()}, 40,15,,,.F.,.T.,.F.,,.F.,,,.F. ) 
+
+oDlg1:Activate(,,,.T.)
+
+return
+
+/*/{Protheus.doc} IncluirSZ1
+description
+@type function
+@version 
+@author Jonatan
+@since 18/06/2022
+@return return_type, return_description
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=23889355
+/*/
+Static Function IncluirSZ1()
+DbSelectArea("SZ1")
+DBSetOrder(1)
+
+IF DbSeek(xFilial("SZ1")+cGetCodigo)     //Se existir este código ele impede de incluir
+    Alert("O CÓDIGO ESCOLHIDO JÁ EXISTE","INCLUSÃO NEGADA")
+ELSE                                                                        
+    IF  (!Empty(cGetNome)  .AND. !Empty(cGetNomeReduz) .AND. !Empty(dGetDatNasc) .AND.  !Empty(StrTran(StrTran(cGetDDDCel,"(",""),")","")) .AND.  !Empty(StrTran(cGetCEL,"-","")) .AND.   !Empty(StrTran(StrTran(cGetCPF,".",""),"-","")))
+        Reclock("SZ1",.T.)
+            //Dados Pessoais
+            SZ1->Z1_FILIAL      := xFilial("SZ1") //Preencherá branco/dois espaços vazios, pois apesar de estarmos logados na filial 01, esta tabela é compartilhada
+            SZ1->Z1_COD         := cGetCodigo
+            SZ1->Z1_NOME        := cGetNome
+            SZ1->Z1_NOMERED     := cGetNomeReduz
+            SZ1->Z1_DATNASC     := dGetDatNasc
+            SZ1->Z1_DDDCEL      := StrTran(StrTran(cGetDDDCel,"(",""),")","")
+            SZ1->Z1_CELULAR     := StrTran(cGetCEL,"-","")
+            SZ1->Z1_SEXO        := cValToChar(nSexo)  //1 Para Masculino - 2 Para Feminino   //Converte de número para caracter
+            SZ1->Z1_CPF         := StrTran(StrTran(cGetCPF,".",""),"-","")
+
+            //Endereco
+            SZ1->Z1_ENDEREC     := cGetEndereco
+            SZ1->Z1_BAIRRO      := cGetBairro
+            SZ1->Z1_TIPOIMO     := cImovel
+            SZ1->Z1_CEP         := StrTran(cGetCEP,"-","")
+            SZ1->Z1_ESTADO      := cEstados
+            SZ1->Z1_CIDADE      := cGetCidade
+
+            //Outros
+            SZ1->Z1_ESTCIVI     := cEstCivil
+            SZ1->Z1_TEMPET      := cValTochar(nPet)  //1 Tem pet  -2 Não tem PET  //Converte de número para caracter
+            SZ1->Z1_LADVPL      := IIF(lCheckADVPL = .T.,"1","2") 
+            SZ1->Z1_LSQL        := IIF(lCheckSQL,"1","2")         
+            SZ1->Z1_LCSHARP     := IIF(lCheckCSHARP,"1","2")        
+            SZ1->Z1_PYTHON      := IIF(lCheckPython,"1","2")      
+            SZ1->Z1_OBS        := cObservacao
+        MsUnlock()
+
+        IF nSexo = 1
+            MsgInfo("Protheuzeiro incluído com sucesso","SUCESSO!")
+        else
+            MsgInfo("Protheuzeira incluída com sucesso", "SUCESSO")
+        endif
+
+        LimpaTela() //Chama-se a função Limpa tela, para limpar/resetar os campos 
+    else                                                                            /*quebra linha na mensagem*/
+        Alert("Existem campos obrigatórios na primeira aba que não foram preenchidos."  +Chr(10)+Chr(13)       +"Por favor, verifique!","Atenção")
+    ENDIF
+ENDIF
+
+dbCloseArea("SZ1")
+
+return
+
+/*/{Protheus.doc} BuscarSZ1
+Função utilizada na busca de registros na SZ1, primeiro realiza-se a busca e depois a alteração
+@type function
+@version 
+@author Jonatan
+@since 18/06/2022
+@return return_type, return_description
+/*/
+Static Function BuscarSZ1()
+
+DbSelectArea("SZ1")
+DBSetOrder(1)
+
+IF DbSeek(xFilial("SZ1")+cGetCodigo)     // Filial: "  " / Código: 000001   "  000001"
+    
+    IF SZ1->Z1_SEXO ="1"
+        MsgInfo("PROTHEUZEIRO localizado", "Sucesso")
+    else
+        MsgInfo("PROTHEUZEIRA localizada", "Sucesso")
+    endif
+
+    //Dados
+    cGetNome       := SZ1->Z1_NOME        
+    cGetNomeReduz  := SZ1->Z1_NOMERED
+    dGetDatNasc    := SZ1->Z1_DATNASC
+    cGetDDDCel     := "("+SZ1->Z1_DDDCEL+")"
+    cGetCEL        := SUBSTR(SZ1->Z1_CELULAR,1,1)+"-"+SUBSTR(SZ1->Z1_CELULAR,2,4)+"-"+SUBSTR(SZ1->Z1_CELULAR,6,4)
+    nSexo          := Val(SZ1->Z1_SEXO) //Converte de caracter para Número
+    cGetCPF        := SUBSTR(SZ1->Z1_CPF,1,3)+"."+SUBSTR(SZ1->Z1_CPF,4,3)+"."+SUBSTR(SZ1->Z1_CPF,7,3)+"-"+SUBSTR(SZ1->Z1_CPF,10,2)
+
+    //Endereco
+    cGetEndereco   := SZ1->Z1_ENDEREC     
+    cGetBairro     := SZ1->Z1_BAIRRO      
+    cImovel        := SZ1->Z1_TIPOIMO     
+    cGetCEP        := SUBSTR(SZ1->Z1_CEP,1,5)+"-"+SUBSTR(SZ1->Z1_CEP,6,3)
+    cEstados       := SZ1->Z1_ESTADO
+    cGetCidade     := SZ1->Z1_CIDADE      
+
+    //Outros
+    cEstCivil      := SZ1->Z1_ESTCIVI     
+    nPet           := Val(SZ1->Z1_TEMPET)    //Converte de caracter para Número
+    lCheckADVPL    := IIF(SZ1->Z1_LADVPL = "1",.T.,.F.)
+    lCheckSQL      := IIF(SZ1->Z1_LSQL = "1",.T.,.F.)
+    lCheckCSHARP   := IIF(SZ1->Z1_LCSHARP = "1",.T.,.F.)
+    lCheckPython   := IIF(SZ1->Z1_PYTHON = "1",.T.,.F.)
+    cObservacao    := SZ1->Z1_OBS
+
+ELSE
+    Alert("Protheuzeiro(a) não encontrado(a)", "Atenção")
+ENDIF
+
+DbCloseArea("SZ1")
+
+return
+
+
+/*/{Protheus.doc} AlterarSZ1
+Função utilizada para realizar a alteração dos registros no banco de dados
+@type function
+@version 
+@author Jonatan
+@since 18/06/2022
+@return return_type, return_description
+/*/
+Static Function AlterarSZ1()
+DbSelectArea("SZ1")
+DBSetOrder(1)
+
+
+IF  (Empty(cGetNome)  .OR. Empty(cGetNomeReduz) .OR. Empty(dGetDatNasc) .OR.  Empty(StrTran(StrTran(cGetDDDCel,"(",""),")","")) .OR.  Empty(StrTran(cGetCEL,"-","")) .OR.   Empty(StrTran(StrTran(cGetCPF,".",""),"-","")))
+    Alert("Existem campos obrigatórios na primeira aba que não foram preenchidos."  +Chr(10)+Chr(13)       +"Por favor, verifique!","Atenção")
+ELSE
+    IF DbSeek(xFilial("SZ1")+cGetCodigo)     // Filial: "  " / Código: 000001   "  000001"
+        Reclock("SZ1",.F.)
+            //Dados Pessoais
+            SZ1->Z1_NOME        := cGetNome
+            SZ1->Z1_NOMERED     := cGetNomeReduz
+            SZ1->Z1_DATNASC     := dGetDatNasc
+            SZ1->Z1_DDDCEL      := StrTran(StrTran(cGetDDDCel,"(",""),")","")
+            SZ1->Z1_CELULAR     := StrTran(cGetCEL,"-","")
+            SZ1->Z1_SEXO        := cValToChar(nSexo)  //1 Para Masculino - 2 Para Feminino   //Converte de número para caracter
+            SZ1->Z1_CPF         := StrTran(StrTran(cGetCPF,".",""),"-","")
+
+            //Endereco
+            SZ1->Z1_ENDEREC     := cGetEndereco
+            SZ1->Z1_BAIRRO      := cGetBairro
+            SZ1->Z1_TIPOIMO     := cImovel
+            SZ1->Z1_CEP         := StrTran(cGetCEP,"-","")
+            SZ1->Z1_ESTADO      := cEstados
+            SZ1->Z1_CIDADE      := cGetCidade
+
+            //Outros
+            SZ1->Z1_ESTCIVI     := cEstCivil
+            SZ1->Z1_TEMPET      := cValTochar(nPet)  //1 Tem pet  -2 Não tem PET  //Converte de número para caracter
+            SZ1->Z1_LADVPL      := IIF(lCheckADVPL = .T.,"1","2") 
+            SZ1->Z1_LSQL        := IIF(lCheckSQL,"1","2")         
+            SZ1->Z1_LCSHARP     := IIF(lCheckCSHARP,"1","2")        
+            SZ1->Z1_PYTHON      := IIF(lCheckPython,"1","2")      
+            SZ1->Z1_OBS        := cObservacao
+        MsUnlock()
+
+        IF nSexo = 1
+            MsgInfo("PROTHEUZEIRO ALTERADO", "Sucesso")
+        else
+            MsgInfo("PROTHEUZEIRA ALTERADA", "Sucesso")
+        endif
+    ENDIF
+ENDIF
+dbCloseArea("SZ1")
+
+
+return
+
+
+
+/*/{Protheus.doc} DeletarSZ1
+Função utilizada para deletar os registros da SZ1
+@type function
+@version 
+@author Jonatan
+@since 18/06/2022
+@return return_type, return_description
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=23889268 
+@see https://tdn.totvs.com/pages/viewpage.action?pageId=24347000
+/*/
+Static Function DeletarSZ1()
+
+IF MSGYESNO("Deseja mesmo excluir o registro de "+cGetNome+"?","ATENÇÃO")
+    DbSelectArea("SZ1")
+    DBSetOrder(1)
+
+    IF DbSeek(xFilial("SZ1")+cGetCodigo)     // Filial: "  " / Código: 000001   "  000001"
+        Reclock("SZ1",.F.)
+        dbDelete()
+        MsUnlock()
+
+        IF nSexo = 1
+            MsgInfo("PROTHEUZEIRO EXCLUÍDO", "Sucesso")
+        else
+            MsgInfo("PROTHEUZEIRA EXCLUÍDA", "Sucesso")
+        endif    
+    ENDIF
+
+    dbCloseArea("SZ1")
+    
+    LimpaTela() //Chama-se a função Limpa tela, para limpar/resetar os campos 
+else
+    Alert("Exclusão abortada pelo usuário","Atenção!")
+endif
+
+return
+
+/*/{Protheus.doc} LimpaTela
+Função responsável pela limpeza da tela
+@type function
+@version 
+@author Jonatan
+@since 18/06/2022
+@return return_type, return_description
+/*/
+Static Function LimpaTela()
+    cGetCodigo     := Space(6)
+    cGetNome       := Space(30)   
+    cGetNomeReduz  := Space(20)
+    dGetDatNasc    := Date()
+    cGetDDDCel     := Space(4)
+    cGetCEL        := Space(11)
+    nSexo          := 2
+    cGetCPF        := Space(14)
+
+    //Endereco
+    cGetEndereco   := Space(30)
+    cGetBairro     := Space(20)
+    cImovel        := aImoveis[2]  
+    cGetCEP        := Space(9)
+    cEstados       := aEstados[5]
+    cGetCidade     := Space(30)   
+
+    //Outros
+    cEstCivil      := aEstCivil[4]   
+    nPet           := 2
+    lCheckADVPL    := .F.
+    lCheckSQL      := .F.
+    lCheckCSHARP   := .F.
+    lCheckPython   := .F.
+    cObservacao    := "Digite aqui as características de Protheuzeiro que te definem"
+return
