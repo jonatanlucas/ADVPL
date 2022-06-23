@@ -2,8 +2,8 @@
 #include 'FwMvcDef.ch'
 
 /*/{Protheus.doc} User Function MVCSZ7
-    Funÿÿo principal para a construÿÿo da tela de Solicitaÿÿo de  Compras da empresa
-    Protheuzeiro Strong S/A, como base na proposta fictÿcia do treinamento da Sistematizei
+    FunÃ¿Ã¿o principal para a construÃ¿Ã¿o da tela de SolicitaÃ¿Ã¿o de  Compras da empresa
+    Protheuzeiro Strong S/A, como base na proposta fictÃ¿cia do treinamento da Sistematizei
     @type  Function
     @author Jonatan Lucas
     @since 20/01/2021
@@ -13,8 +13,8 @@
 User Function MVCSZ7()
 Local aArea     := GetArea()
 
-/*Farÿ o instanciamento da classe FwmBrowse, passando
- para o oBrowse a possibilidade de executar todos os mÿtodos da classe
+/*FarÃ¿ o instanciamento da classe FwmBrowse, passando
+ para o oBrowse a possibilidade de executar todos os mÃ¿todos da classe
 */
 Local oBrowse   := FwmBrowse():New() 
 
@@ -35,16 +35,16 @@ Return
     @since 21/01/2021
     @version version
     @param , param_type, param_descr
-    @return aRotina, array, array com Opÿÿes do Menu
+    @return aRotina, array, array com OpÃ¿Ã¿es do Menu
     @example
     (examples)
     @see (links_or_references)
     /*/
 Static Function MenuDef()
-//Primeira Opÿÿo de Menu
+//Primeira OpÃ¿Ã¿o de Menu
 Local aRotina := FwMvcMenu("MVCSZ7")
 
-/*Segunda Opÿÿo de Menu
+/*Segunda OpÃ¿Ã¿o de Menu
 Local aRotina := {}
 
 ADD OPTION aRotina TITLE 'Visualizar'   ACTION 'VIEWDEF.MVCSZ7'   OPERATION 2 ACCESS 0
@@ -57,11 +57,11 @@ ADD OPTION aRotina TITLE 'Excluir'      ACTION 'VIEWDEF.MVCSZ7'   OPERATION 5 AC
 //3- incluir
 //4- alterar
 //5- excluir
-//6- outras funÿÿes
+//6- outras funÃ¿Ã¿es
 //7- copiar
 */
 
-/*Terceira Opÿÿo de Menu
+/*Terceira OpÃ¿Ã¿o de Menu
 Local aRotina := {}
 
 ADD OPTION aRotina TITLE 'Visualizar'   ACTION 'VIEWDEF.MVCSZ7'  OPERATION  MODEL_OPERATION_VIEW      ACCESS 0
@@ -75,7 +75,7 @@ Return aRotina
 
 
 /*/{Protheus.doc} ModelDef
-    Static function responsÿvel pela criaÿÿo do modelo de dados
+    Static function responsÃ¿vel pela criaÃ¿Ã¿o do modelo de dados
     @type  Static Function
     @author user
     @since 20/01/2021
@@ -88,24 +88,24 @@ Return aRotina
     @see https://tdn.totvs.com/display/framework/FWFormGridModel
     /*/
 Static Function ModelDef()
-//Objeto responsÿvel pela CRIAÿÿO da estrutura TEMPORÿRIA do cabeÿalho 
+//Objeto responsÃ¿vel pela CRIAÃ¿Ã¿O da estrutura TEMPORÃ¿RIA do cabeÃ¿alho 
 Local oStCabec      := FWFormModelStruct():New()
 
-//Objeto responsÿvel pela estrutura dos itens
+//Objeto responsÃ¿vel pela estrutura dos itens
 Local oStItens      := FwFormStruct(1,"SZ7") //1 para model 2 para view
 
 
-Local bVldCom       := {|| u_GrvSZ7()} //Chamada da User Function Commit que validarÿ a INCLUSÿO/ALTERAÿÿO/EXCLUSÿO dos itens
+Local bVldCom       := {|| u_GrvSZ7()} //Chamada da User Function Commit que validarÃ¿ a INCLUSÃ¿O/ALTERAÃ¿Ã¿O/EXCLUSÃ¿O dos itens
 
 
-/*Objeto principal do desenvolvimento em MVC MODELO2, ele traz as caracterÿsticas do dicionÿrio de dados
-bem como ÿ o responsÿvel pela estrutura de tabelas, campos e registros*/
+/*Objeto principal do desenvolvimento em MVC MODELO2, ele traz as caracterÃ¿sticas do dicionÃ¿rio de dados
+bem como Ã¿ o responsÃ¿vel pela estrutura de tabelas, campos e registros*/
 Local oModel        := MPFormModel():New("MVCSZ7m",/*bPre*/, /*bPos*/, bVldCom /*bCommit*/,/*bCancel*/)
 
-//Criaÿÿo da tabela temporÿria que serÿ utilizada no cabeÿalho
-oStCabec:AddTable("SZ7",{"Z7_FILIAL","Z7_NUM","Z7_ITEM"},"Cabeÿalho SZ7")
+//CriaÃ¿Ã¿o da tabela temporÃ¿ria que serÃ¿ utilizada no cabeÃ¿alho
+oStCabec:AddTable("SZ7",{"Z7_FILIAL","Z7_NUM","Z7_ITEM"},"CabeÃ¿alho SZ7")
 
-//Criaÿÿo dos campos da tabela temporÿria
+//CriaÃ¿Ã¿o dos campos da tabela temporÃ¿ria
 oStCabec:AddField(;
     "Filial",;                                                                                  // [01]  C   Titulo do campo
     "Filial",;                                                                                  // [02]  C   ToolTip do campo
@@ -113,14 +113,14 @@ oStCabec:AddField(;
     "C",;                                                                                       // [04]  C   Tipo do campo
     TamSX3("Z7_FILIAL")[1],;                                                                    // [05]  N   Tamanho do campo
     0,;                                                                                         // [06]  N   Decimal do campo
-    Nil,;                                                                                       // [07]  B   Code-block de validaÿÿo do campo
-    Nil,;                                                                                       // [08]  B   Code-block de validaÿÿo When do campo
+    Nil,;                                                                                       // [07]  B   Code-block de validaÃ¿Ã¿o do campo
+    Nil,;                                                                                       // [08]  B   Code-block de validaÃ¿Ã¿o When do campo
     {},;                                                                                        // [09]  A   Lista de valores permitido do campo
-    .F.,;                                                                                       // [10]  L   Indica se o campo tem preenchimento obrigatÿrio
+    .F.,;                                                                                       // [10]  L   Indica se o campo tem preenchimento obrigatÃ¿rio
     FwBuildFeature( STRUCT_FEATURE_INIPAD, "Iif(!INCLUI,SZ7->Z7_FILIAL,FWxFilial('SZ7'))" ),;   // [11]  B   Code-block de inicializacao do campo
     .T.,;                                                                                       // [12]  L   Indica se trata-se de um campo chave
-    .F.,;                                                                                       // [13]  L   Indica se o campo pode receber valor em uma operaÿÿo de update.
-    .F.)                                                                                        // [14]  L   Indica se o campo ÿ virtual
+    .F.,;                                                                                       // [13]  L   Indica se o campo pode receber valor em uma operaÃ¿Ã¿o de update.
+    .F.)                                                                                        // [14]  L   Indica se o campo Ã¿ virtual
 
 oStCabec:AddField(;
     "Pedido",;                                                                                  // [01]  C   Titulo do campo
@@ -129,14 +129,14 @@ oStCabec:AddField(;
     "C",;                                                                                       // [04]  C   Tipo do campo
     TamSX3("Z7_NUM")[1],;                                                                       // [05]  N   Tamanho do campo
     0,;                                                                                         // [06]  N   Decimal do campo
-    Nil,;                                                                                       // [07]  B   Code-block de validaÿÿo do campo
-    Nil,;                                                                                       // [08]  B   Code-block de validaÿÿo When do campo
+    Nil,;                                                                                       // [07]  B   Code-block de validaÃ¿Ã¿o do campo
+    Nil,;                                                                                       // [08]  B   Code-block de validaÃ¿Ã¿o When do campo
     {},;                                                                                        // [09]  A   Lista de valores permitido do campo
-    .F.,;                                                                                       // [10]  L   Indica se o campo tem preenchimento obrigatÿrio
+    .F.,;                                                                                       // [10]  L   Indica se o campo tem preenchimento obrigatÃ¿rio
     FwBuildFeature( STRUCT_FEATURE_INIPAD, "Iif(!INCLUI,SZ7->Z7_NUM,'')" ),;                    // [11]  B   Code-block de inicializacao do campo
     .T.,;                                                                                       // [12]  L   Indica se trata-se de um campo chave
-    .F.,;                                                                                       // [13]  L   Indica se o campo pode receber valor em uma operaÿÿo de update.
-    .F.)                                                                                        // [14]  L   Indica se o campo ÿ virtual
+    .F.,;                                                                                       // [13]  L   Indica se o campo pode receber valor em uma operaÃ¿Ã¿o de update.
+    .F.)                                                                                        // [14]  L   Indica se o campo Ã¿ virtual
 
 oStCabec:AddField(;
     "Emissao",;                                                                     // [01]  C   Titulo do campo
@@ -145,14 +145,14 @@ oStCabec:AddField(;
     "D",;                                                                           // [04]  C   Tipo do campo
     TamSX3("Z7_EMISSAO")[1],;                                                       // [05]  N   Tamanho do campo
     0,;                                                                             // [06]  N   Decimal do campo
-    Nil,;                                                                           // [07]  B   Code-block de validaÿÿo do campo
-    Nil,;                                                                           // [08]  B   Code-block de validaÿÿo When do campo
+    Nil,;                                                                           // [07]  B   Code-block de validaÃ¿Ã¿o do campo
+    Nil,;                                                                           // [08]  B   Code-block de validaÃ¿Ã¿o When do campo
     {},;                                                                            // [09]  A   Lista de valores permitido do campo
-    .T.,;                                                                           // [10]  L   Indica se o campo tem preenchimento obrigatÿrio
+    .T.,;                                                                           // [10]  L   Indica se o campo tem preenchimento obrigatÃ¿rio
     FwBuildFeature( STRUCT_FEATURE_INIPAD, "Iif(!INCLUI,SZ7->Z7_EMISSAO,dDataBase)" ),;    // [11]  B   Code-block de inicializacao do campo
     .T.,;                                                                           // [12]  L   Indica se trata-se de um campo chave
-    .F.,;                                                                           // [13]  L   Indica se o campo pode receber valor em uma operaÿÿo de update.
-    .F.)                                                                            // [14]  L   Indica se o campo ÿ virtual
+    .F.,;                                                                           // [13]  L   Indica se o campo pode receber valor em uma operaÃ¿Ã¿o de update.
+    .F.)                                                                            // [14]  L   Indica se o campo Ã¿ virtual
 
 
 oStCabec:AddField(;
@@ -162,14 +162,14 @@ oStCabec:AddField(;
     "C",;                                                                       // [04]  C   Tipo do campo
     TamSX3("Z7_FORNECE")[1],;                                                   // [05]  N   Tamanho do campo
     0,;                                                                         // [06]  N   Decimal do campo
-    Nil,;                                                                       // [07]  B   Code-block de validaÿÿo do campo
-    Nil,;                                                                       // [08]  B   Code-block de validaÿÿo When do campo
+    Nil,;                                                                       // [07]  B   Code-block de validaÃ¿Ã¿o do campo
+    Nil,;                                                                       // [08]  B   Code-block de validaÃ¿Ã¿o When do campo
     {},;                                                                        // [09]  A   Lista de valores permitido do campo
-    .T.,;                                                                       // [10]  L   Indica se o campo tem preenchimento obrigatÿrio
+    .T.,;                                                                       // [10]  L   Indica se o campo tem preenchimento obrigatÃ¿rio
     FwBuildFeature( STRUCT_FEATURE_INIPAD, "Iif(!INCLUI,SZ7->Z7_FORNECE,'')" ),;// [11]  B   Code-block de inicializacao do campo
     .F.,;                                                                       // [12]  L   Indica se trata-se de um campo chave
-    .F.,;                                                                       // [13]  L   Indica se o campo pode receber valor em uma operaÿÿo de update.
-    .F.)                                                                        // [14]  L   Indica se o campo ÿ virtual
+    .F.,;                                                                       // [13]  L   Indica se o campo pode receber valor em uma operaÃ¿Ã¿o de update.
+    .F.)                                                                        // [14]  L   Indica se o campo Ã¿ virtual
 
 oStCabec:AddField(;
     "Loja",;                                                                      // [01]  C   Titulo do campo
@@ -178,14 +178,14 @@ oStCabec:AddField(;
     "C",;                                                                         // [04]  C   Tipo do campo
     TamSX3("Z7_LOJA")[1],;                                                        // [05]  N   Tamanho do campo
     0,;                                                                           // [06]  N   Decimal do campo
-    Nil,;                                                                         // [07]  B   Code-block de validaÿÿo do campo
-    Nil,;                                                                         // [08]  B   Code-block de validaÿÿo When do campo
+    Nil,;                                                                         // [07]  B   Code-block de validaÃ¿Ã¿o do campo
+    Nil,;                                                                         // [08]  B   Code-block de validaÃ¿Ã¿o When do campo
     {},;                                                                          // [09]  A   Lista de valores permitido do campo
-    .T.,;                                                                         // [10]  L   Indica se o campo tem preenchimento obrigatÿrio
+    .T.,;                                                                         // [10]  L   Indica se o campo tem preenchimento obrigatÃ¿rio
     FwBuildFeature( STRUCT_FEATURE_INIPAD, "Iif(!INCLUI,SZ7->Z7_LOJA,'')" ),;     // [11]  B   Code-block de inicializacao do campo
     .F.,;                                                                         // [12]  L   Indica se trata-se de um campo chave
-    .F.,;                                                                         // [13]  L   Indica se o campo pode receber valor em uma operaÿÿo de update.
-    .F.)                                                                          // [14]  L   Indica se o campo ÿ virtual
+    .F.,;                                                                         // [13]  L   Indica se o campo pode receber valor em uma operaÃ¿Ã¿o de update.
+    .F.)                                                                          // [14]  L   Indica se o campo Ã¿ virtual
 
 oStCabec:AddField(;
     "Usuario",;                                                                     // [01]  C   Titulo do campo
@@ -194,33 +194,33 @@ oStCabec:AddField(;
     "C",;                                                                           // [04]  C   Tipo do campo
     TamSX3("Z7_USER")[1],;                                                          // [05]  N   Tamanho do campo
     0,;                                                                             // [06]  N   Decimal do campo
-    Nil,;                                                                           // [07]  B   Code-block de validaÿÿo do campo
-    Nil,;                                                                           // [08]  B   Code-block de validaÿÿo When do campo
+    Nil,;                                                                           // [07]  B   Code-block de validaÃ¿Ã¿o do campo
+    Nil,;                                                                           // [08]  B   Code-block de validaÃ¿Ã¿o When do campo
     {},;                                                                            // [09]  A   Lista de valores permitido do campo
-    .T.,;                                                                           // [10]  L   Indica se o campo tem preenchimento obrigatÿrio
+    .T.,;                                                                           // [10]  L   Indica se o campo tem preenchimento obrigatÃ¿rio
     FwBuildFeature( STRUCT_FEATURE_INIPAD, "Iif(!INCLUI,SZ7->Z7_USER,__cuserid)" ),;// [11]  B   Code-block de inicializacao do campo
     .F.,;                                                                           // [12]  L   Indica se trata-se de um campo chave
-    .F.,;                                                                           // [13]  L   Indica se o campo pode receber valor em uma operaÿÿo de update.
-    .F.)                                                                            // [14]  L   Indica se o campo ÿ virtual
+    .F.,;                                                                           // [13]  L   Indica se o campo pode receber valor em uma operaÃ¿Ã¿o de update.
+    .F.)                                                                            // [14]  L   Indica se o campo Ã¿ virtual
 
-//Agora vamos tratar a estrutura dos Itens, que serÿo utilizados no Grid da aplicaÿÿo
+//Agora vamos tratar a estrutura dos Itens, que serÃ¿o utilizados no Grid da aplicaÃ¿Ã¿o
 
-//Modificando Inicializadores Padrao,  para nÿo dar mensagem de colunas vazias
+//Modificando Inicializadores Padrao,  para nÃ¿o dar mensagem de colunas vazias
 oStItens:SetProperty("Z7_NUM",      MODEL_FIELD_INIT, FwBuildFeature(STRUCT_FEATURE_INIPAD, '"*"'))
-oStItens:SetProperty("Z7_USER",     MODEL_FIELD_INIT, FwBuildFeature(STRUCT_FEATURE_INIPAD, '__cUserId')) //Trazer o usuÿrio automatico
-oStItens:SetProperty("Z7_EMISSAO",  MODEL_FIELD_INIT, FwBuildFeature(STRUCT_FEATURE_INIPAD, 'dDatabase')) //Trazer a data automÿtica
+oStItens:SetProperty("Z7_USER",     MODEL_FIELD_INIT, FwBuildFeature(STRUCT_FEATURE_INIPAD, '__cUserId')) //Trazer o usuÃ¿rio automatico
+oStItens:SetProperty("Z7_EMISSAO",  MODEL_FIELD_INIT, FwBuildFeature(STRUCT_FEATURE_INIPAD, 'dDatabase')) //Trazer a data automÃ¿tica
 oStItens:SetProperty("Z7_FORNECE",  MODEL_FIELD_INIT, FwBuildFeature(STRUCT_FEATURE_INIPAD, '"*"'))
 oStItens:SetProperty("Z7_LOJA",     MODEL_FIELD_INIT, FwBuildFeature(STRUCT_FEATURE_INIPAD, '"*"'))
 
-/*A partir de agora, eu faÿo a uniÿo das estruturas, vinculando o cabeÿalho com os itens
-tambÿm faÿo a vinculaÿÿo da Estrutura de dados dos itens, ao modelo
+/*A partir de agora, eu faÃ¿o a uniÃ¿o das estruturas, vinculando o cabeÃ¿alho com os itens
+tambÃ¿m faÃ¿o a vinculaÃ¿Ã¿o da Estrutura de dados dos itens, ao modelo
 */
 
-oModel:AddFields("SZ7MASTER",,oStCabec) //Faÿo a vinculaÿÿo com o oStCabe(cabeÿalho e itens temporÿrios)
+oModel:AddFields("SZ7MASTER",,oStCabec) //FaÃ¿o a vinculaÃ¿Ã¿o com o oStCabe(cabeÃ¿alho e itens temporÃ¿rios)
 oModel:AddGrid("SZ7DETAIL","SZ7MASTER",oStItens,,,,,)
 
 
-//Seto a relaÿÿo entre cabeÿaho e item, neste ponto, eu digo atravÿs de qual/quais campo(s) o grid estÿ vinculado com o cabeÿalho
+//Seto a relaÃ¿Ã¿o entre cabeÃ¿aho e item, neste ponto, eu digo atravÃ¿s de qual/quais campo(s) o grid estÃ¿ vinculado com o cabeÃ¿alho
 aRelations := {}
 aAdd(aRelations,{"Z7_FILIAL",'Iif(!INCLUI, SZ7->Z7_FILIAL, FWxFilial("SZ7"))'})
 aAdd(aRelations,{"Z7_NUM","SZ7->Z7_NUM"})
@@ -228,19 +228,19 @@ oModel:SetRelation("SZ7DETAIL",aRelations,SZ7->(IndexKey(1)))
 
 oModel:SetRelation('SZ7DETAIL',{{'Z7_FILIAL','Iif(!INCLUI, SZ7->Z7_FILIAL, FWxFilial("SZ7"))'},{'Z7_NUM','SZ7->Z7_NUM'}},SZ7->(IndexKey(1)))
 
-//Seto a chave primÿria, lembrando que, se ela estiver definida no X2_UNICO, faz valer o que estÿ no X2_UNICO
+//Seto a chave primÃ¿ria, lembrando que, se ela estiver definida no X2_UNICO, faz valer o que estÃ¿ no X2_UNICO
 oModel:SetPrimaryKey({})
 
-//ÿ como se fosse a "chave primÿria do GRID"
-oModel:GetModel("SZ7DETAIL"):SetUniqueline({"Z7_ITEM"}) //o intuito ÿ que este campo nÿo se repita
+//Ã¿ como se fosse a "chave primÃ¿ria do GRID"
+oModel:GetModel("SZ7DETAIL"):SetUniqueline({"Z7_ITEM"}) //o intuito Ã¿ que este campo nÃ¿o se repita
 
-//Setamos a descriÿÿo/tÿtulo que aparecerÿ no cabeÿalho 
-oModel:GetModel("SZ7MASTER"):SetDescription("CABEÿALHO DA SOLICITAÿÿO DE COMPRAS")
+//Setamos a descriÃ¿Ã¿o/tÃ¿tulo que aparecerÃ¿ no cabeÃ¿alho 
+oModel:GetModel("SZ7MASTER"):SetDescription("CABEÃ¿ALHO DA SOLICITAÃ¿Ã¿O DE COMPRAS")
 
-//Setamos a descriÿÿo/tÿtulo que aparecerÿ no GRID DE ITENS
-oModel:GetModel("SZ7DETAIL"):SetDescription("ITENS DA SOLICITAÿÿO DE COMPRAS")
+//Setamos a descriÃ¿Ã¿o/tÃ¿tulo que aparecerÃ¿ no GRID DE ITENS
+oModel:GetModel("SZ7DETAIL"):SetDescription("ITENS DA SOLICITAÃ¿Ã¿O DE COMPRAS")
 
-//Finalizamos a funÿÿo model
+//Finalizamos a funÃ¿Ã¿o model
 oModel:GetModel("SZ7DETAIL"):SetUseOldGrid(.T.) //Finalizo setando o modelo antigo de Grid, que permite pegar aHeader e aCols
 
 Return oModel
@@ -252,27 +252,27 @@ Return oModel
     @author user
     @since 21/01/2021
     @version version
-    @return oView, objeto, Objeto de Visualizaÿÿo do fonte MVC
+    @return oView, objeto, Objeto de VisualizaÃ¿Ã¿o do fonte MVC
     @see https://tdn.totvs.com/display/framework/FWFormView
     /*/
 Static Function ViewDef()
 Local oView         := Nil
 
-/*Faÿo o Load do Movel referente ÿ funÿÿo/fonte MVCSZ7, sendo assim se este Model
- estivesse em um outro fonte eu poderia pegar de lÿ, sem ter que copiar tudooo de novo
+/*FaÃ¿o o Load do Movel referente Ã¿ funÃ¿Ã¿o/fonte MVCSZ7, sendo assim se este Model
+ estivesse em um outro fonte eu poderia pegar de lÃ¿, sem ter que copiar tudooo de novo
  */
 Local oModel        := FwLoadModel("MVCSZ7")
 
-//Objeto encarregado de montar a estrutura temporÿria do cabeÿalho da View
+//Objeto encarregado de montar a estrutura temporÃ¿ria do cabeÃ¿alho da View
 Local oStCabec      := FwFormViewStruct():New()
 
-/* Objeto responsÿvel por montar a parte de estrutura dos itens/grid
+/* Objeto responsÃ¿vel por montar a parte de estrutura dos itens/grid
 Como estou usando FwFormStruct, ele traz a estrutura de TODOS OS CAMPOS, sendo assim
-caso eu nÿo queira que algum campo, apareÿa na minha grid, eu devo remover este campo com RemoveField
+caso eu nÃ¿o queira que algum campo, apareÃ¿a na minha grid, eu devo remover este campo com RemoveField
 */
 Local oStItens      := FwFormStruct(2,"SZ7") //1 para model 2 para view
 
-//Crio dentro da estrutura da View, os campos do cabeÿalho
+//Crio dentro da estrutura da View, os campos do cabeÃ¿alho
 
 oStCabec:AddField(;
     "Z7_NUM",;                  // [01]  C   Nome do Campo
@@ -284,15 +284,15 @@ oStCabec:AddField(;
     X3Picture("Z7_NUM"),;       // [07]  C   Picture
     Nil,;                       // [08]  B   Bloco de PictTre Var
     Nil,;                       // [09]  C   Consulta F3
-    Iif(INCLUI, .T., .F.),;    	// [10]  L   Indica se o campo ÿ alteravel
+    Iif(INCLUI, .T., .F.),;    	// [10]  L   Indica se o campo Ã¿ alteravel
     Nil,;                       // [11]  C   Pasta do campo
     Nil,;                       // [12]  C   Agrupamento do campo
     Nil,;                       // [13]  A   Lista de valores permitido do campo (Combo)
-    Nil,;                       // [14]  N   Tamanho maximo da maior opÿÿo do combo
+    Nil,;                       // [14]  N   Tamanho maximo da maior opÃ¿Ã¿o do combo
     Nil,;                       // [15]  C   Inicializador de Browse
-    Nil,;                       // [16]  L   Indica se o campo ÿ virtual
+    Nil,;                       // [16]  L   Indica se o campo Ã¿ virtual
     Nil,;                       // [17]  C   Picture Variavel
-    Nil)                        // [18]  L   Indica pulo de linha apÿs o campo
+    Nil)                        // [18]  L   Indica pulo de linha apÃ¿s o campo
 
 oStCabec:AddField(;
     "Z7_EMISSAO",;                // [01]  C   Nome do Campo
@@ -304,13 +304,13 @@ oStCabec:AddField(;
     X3Picture("Z7_EMISSAO"),;    // [07]  C   Picture
     Nil,;                       // [08]  B   Bloco de PictTre Var
     Nil,;                       // [09]  C   Consulta F3
-    Iif(INCLUI, .T., .F.),;     // [10]  L   Indica se o campo ÿ alteravel
+    Iif(INCLUI, .T., .F.),;     // [10]  L   Indica se o campo Ã¿ alteravel
     Nil,;                       // [11]  C   Pasta do campo
     Nil,;                       // [12]  C   Agrupamento do campo
     Nil,;                       // [13]  A   Lista de valores permitido do campo (Combo)
-    Nil,;                       // [14]  N   Tamanho maximo da maior opÿÿo do combo
+    Nil,;                       // [14]  N   Tamanho maximo da maior opÃ¿Ã¿o do combo
     Nil,;                       // [15]  C   Inicializador de Browse
-    Nil,;                       // [16]  L   Indica se o campo ÿ virtual
+    Nil,;                       // [16]  L   Indica se o campo Ã¿ virtual
     Nil,;                       // [17]  C   Picture Variavel
     Nil)  
 
@@ -324,13 +324,13 @@ oStCabec:AddField(;
     X3Picture("Z7_FORNECE"),;       // [07]  C   Picture
     Nil,;                           // [08]  B   Bloco de PictTre Var
     "SA2",;                         // [09]  C   Consulta F3
-    Iif(INCLUI, .T., .F.),;         // [10]  L   Indica se o campo ÿ alteravel
+    Iif(INCLUI, .T., .F.),;         // [10]  L   Indica se o campo Ã¿ alteravel
     Nil,;                           // [11]  C   Pasta do campo
     Nil,;                           // [12]  C   Agrupamento do campo
     Nil,;                           // [13]  A   Lista de valores permitido do campo (Combo)
-    Nil,;                           // [14]  N   Tamanho maximo da maior opÿÿo do combo
+    Nil,;                           // [14]  N   Tamanho maximo da maior opÃ¿Ã¿o do combo
     Nil,;                           // [15]  C   Inicializador de Browse
-    Nil,;                           // [16]  L   Indica se o campo ÿ virtual
+    Nil,;                           // [16]  L   Indica se o campo Ã¿ virtual
     Nil,;                           // [17]  C   Picture Variavel
     Nil) 
 
@@ -344,13 +344,13 @@ oStCabec:AddField(;
     X3Picture("Z7_LOJA"),;      // [07]  C   Picture
     Nil,;                       // [08]  B   Bloco de PictTre Var
     Nil,;                       // [09]  C   Consulta F3
-    Iif(INCLUI, .T., .F.),;     // [10]  L   Indica se o campo ÿ alteravel
+    Iif(INCLUI, .T., .F.),;     // [10]  L   Indica se o campo Ã¿ alteravel
     Nil,;                       // [11]  C   Pasta do campo
     Nil,;                       // [12]  C   Agrupamento do campo
     Nil,;                       // [13]  A   Lista de valores permitido do campo (Combo)
-    Nil,;                       // [14]  N   Tamanho maximo da maior opÿÿo do combo
+    Nil,;                       // [14]  N   Tamanho maximo da maior opÃ¿Ã¿o do combo
     Nil,;                       // [15]  C   Inicializador de Browse
-    Nil,;                       // [16]  L   Indica se o campo ÿ virtual
+    Nil,;                       // [16]  L   Indica se o campo Ã¿ virtual
     Nil,;                       // [17]  C   Picture Variavel
     Nil)
 
@@ -364,13 +364,13 @@ oStCabec:AddField(;
     X3Picture("Z7_USER"),;      // [07]  C   Picture
     Nil,;                       // [08]  B   Bloco de PictTre Var
     Nil,;                       // [09]  C   Consulta F3
-    .F.,;                       // [10]  L   Indica se o campo ÿ alteravel
+    .F.,;                       // [10]  L   Indica se o campo Ã¿ alteravel
     Nil,;                       // [11]  C   Pasta do campo
     Nil,;                       // [12]  C   Agrupamento do campo
     Nil,;                       // [13]  A   Lista de valores permitido do campo (Combo)
-    Nil,;                       // [14]  N   Tamanho maximo da maior opÿÿo do combo
+    Nil,;                       // [14]  N   Tamanho maximo da maior opÃ¿Ã¿o do combo
     Nil,;                       // [15]  C   Inicializador de Browse
-    Nil,;                       // [16]  L   Indica se o campo ÿ virtual
+    Nil,;                       // [16]  L   Indica se o campo Ã¿ virtual
     Nil,;                       // [17]  C   Picture Variavel
     Nil) 
 
@@ -380,36 +380,36 @@ oStItens:RemoveField("Z7_FORNECE")
 oStItens:RemoveField("Z7_LOJA")      
 oStItens:RemoveField("Z7_USER") 
 
-/*Agora vamos para a segunda parte da ViewDef, onde nÿs amarramos as estruturas de dados, montadas acima
-com o objeto oView, e passamos para a nossa aplicaÿÿo todas as caracterÿsticas visuais do projetos
+/*Agora vamos para a segunda parte da ViewDef, onde nÃ¿s amarramos as estruturas de dados, montadas acima
+com o objeto oView, e passamos para a nossa aplicaÃ¿Ã¿o todas as caracterÃ¿sticas visuais do projetos
 */
 
 //Instancio a classe FwFormView para o objeto view
 oView := FwFormView():New()
 
-//Passo para o objeto View o modelo de dados que quero atrelar ÿ ele Modelo + Visualizaÿÿo
+//Passo para o objeto View o modelo de dados que quero atrelar Ã¿ ele Modelo + VisualizaÃ¿Ã¿o
 oView:SetModel(oModel)
 
-//Monto a estrutura de visualizaÿÿo do Master e do Detalhe (Cabeÿalho e Itens)
-oView:AddField("VIEW_SZ7M",oStCabec,"SZ7MASTER") //Cabeÿalho/Master
+//Monto a estrutura de visualizaÃ¿Ã¿o do Master e do Detalhe (CabeÃ¿alho e Itens)
+oView:AddField("VIEW_SZ7M",oStCabec,"SZ7MASTER") //CabeÃ¿alho/Master
 oView:AddGrid("VIEW_SZ7D", oStItens,"SZ7DETAIL") //Itens/Grid
 
-//Criamos a telinha, dividindo proporcionalmente o tamanho do cabeÿalho e o tamanho do Grid
+//Criamos a telinha, dividindo proporcionalmente o tamanho do cabeÃ¿alho e o tamanho do Grid
 oView:CreateHorizontalBox("CABEC",30)
 oView:CreateHorizontalBox("GRID", 60)
 
-/*Abaixo, digo para onde vÿo cada View Criada, VIEW_SZ7M irÿ para a cabec
-VIEW_SZ7D irÿ para GRID... Sendo assim, eu associo o View ÿ cada Box criado
+/*Abaixo, digo para onde vÃ¿o cada View Criada, VIEW_SZ7M irÃ¿ para a cabec
+VIEW_SZ7D irÃ¿ para GRID... Sendo assim, eu associo o View Ã¿ cada Box criado
 */
 oView:SetOwnerView("VIEW_SZ7M","CABEC") 
 oView:SetOwnerView("VIEW_SZ7D","GRID") 
 
-//Ativar o tÿtulos de cada VIEW/Box criado
-oView:EnableTitleView("VIEW_SZ7M","Cabeÿalho Solicitaÿÿo de Compras")
+//Ativar o tÃ¿tulos de cada VIEW/Box criado
+oView:EnableTitleView("VIEW_SZ7M","CabeÃ¿alho SolicitaÃ¿Ã¿o de Compras")
 oView:EnableTitleView("VIEW_SZ7D","Itens de Solicitacao de Compras")
 
-/*Metodo que seta um bloco de cÿdigo para verificar se a janela deve ou nÿo
-ser fechada apÿs a execuÿÿo do botÿo OK.
+/*Metodo que seta um bloco de cÃ¿digo para verificar se a janela deve ou nÃ¿o
+ser fechada apÃ¿s a execuÃ¿Ã¿o do botÃ¿o OK.
 */
 oView:SetCloseOnOk({|| .T.})
 
@@ -423,7 +423,7 @@ Return oView
     @author user
     @since 22/01/2021
     @version version
-    @return lRet, logical, Retorna TRUE ou FALSE para INCLUSAO, ALTERAÿÿO E EXCLUSÿO
+    @return lRet, logical, Retorna TRUE ou FALSE para INCLUSAO, ALTERAÃ¿Ã¿O E EXCLUSÃ¿O
     @example
     (examples)
     @see https://tdn.totvs.com/pages/viewpage.action?pageId=23889360
@@ -432,26 +432,26 @@ Return oView
 User Function GrvSZ7()
 Local aArea     := GetArea()  
 
-//Variÿvel de controle da gravaÿÿo, por enquanto estÿ TRUE mas poderÿ ser FALSE
+//VariÃ¿vel de controle da gravaÃ¿Ã¿o, por enquanto estÃ¿ TRUE mas poderÃ¿ ser FALSE
 Local lRet      := .T.
 
-//Capturo o modelo ativo, no caso o objeto de modelo(oModel) que estÿ sendo manipulado em nossa aplicaÿÿo
+//Capturo o modelo ativo, no caso o objeto de modelo(oModel) que estÃ¿ sendo manipulado em nossa aplicaÃ¿Ã¿o
 Local oModel        := FwModelActive()
 
-//Criar modelo de dados MASTER/CABEÿALHO com base no model geral que foi capturado acima
-//Carregando o modelo do CABEÿALHO
+//Criar modelo de dados MASTER/CABEÃ¿ALHO com base no model geral que foi capturado acima
+//Carregando o modelo do CABEÃ¿ALHO
 Local oModelCabec    := oModel:GetModel("SZ7MASTER")
 
 /*Criar modelo de dados DETALHE/ITENS com base no model geral que foi capturado acima
 Carregando o modelo dos ITENS
-Este modelo serÿ responsÿvel, pela estrutura do aHeader aCols da Grid
+Este modelo serÃ¿ responsÃ¿vel, pela estrutura do aHeader aCols da Grid
 */
 Local oModelItem     := oModel:GetModel("SZ7DETAIL") 
 
 
 /*
-Capturo os valores que estÿo no CABEÿALHO, atravÿs do mÿtodo GetValue
-Carrego os campos dentro das variÿveis, estas variÿveis serÿo utilizadas para
+Capturo os valores que estÃ¿o no CABEÃ¿ALHO, atravÃ¿s do mÃ¿todo GetValue
+Carrego os campos dentro das variÃ¿veis, estas variÃ¿veis serÃ¿o utilizadas para
 inserir o que foi digitao na tela, dentro do banco
 */
 Local cFilSZ7   :=  oModelCabec:GetValue("Z7_FILIAL")
@@ -461,13 +461,13 @@ Local cFornece  :=  oModelCabec:GetValue("Z7_FORNECE")
 Local cLoja     :=  oModelCabec:GetValue("Z7_LOJA")
 Local cUser     :=  oModelCabec:GetValue("Z7_USER")
 
-//Variÿveis que farÿo a captura dos dados com base no aHeader e aCols
+//VariÃ¿veis que farÃ¿o a captura dos dados com base no aHeader e aCols
 Local aHeaderAux    := oModelItem:aHeader //Captura o aHeader do Grid
 Local aColsAux      := oModelItem:aCols   //Captura o aCols do Grid
 
-/*Precisamos agora pegar a posiÿÿo de cada campo dentro do grid
-Lembrando que neste caso, sÿ precisamos pegar a posiÿÿo dos campos que nÿo
-estÿo no cabeÿalho, somente os campos da GRID
+/*Precisamos agora pegar a posiÃ¿Ã¿o de cada campo dentro do grid
+Lembrando que neste caso, sÃ¿ precisamos pegar a posiÃ¿Ã¿o dos campos que nÃ¿o
+estÃ¿o no cabeÃ¿alho, somente os campos da GRID
 */
 Local nPosItem      :=  aScan(aHeaderAux, {|x| AllTrim(Upper(x[2])) == AllTrim("Z7_ITEM")})
 Local nPosProd      :=  aScan(aHeaderAux, {|x| AllTrim(Upper(x[2])) == AllTrim("Z7_PRODUTO")})
@@ -475,34 +475,34 @@ Local nPosQtd       :=  aScan(aHeaderAux, {|x| AllTrim(Upper(x[2])) == AllTrim("
 Local nPosPrc       :=  aScan(aHeaderAux, {|x| AllTrim(Upper(x[2])) == AllTrim("Z7_PRECO")})
 Local nPosTotal     :=  aScan(aHeaderAux, {|x| AllTrim(Upper(x[2])) == AllTrim("Z7_TOTAL")})
 
-//Preciso pegar a linha atual que o usuÿrio estÿ posicionado, para isso usarei uma variÿvel
-//Esta variÿvel irÿ para dentro do FOR
+//Preciso pegar a linha atual que o usuÃ¿rio estÃ¿ posicionado, para isso usarei uma variÃ¿vel
+//Esta variÃ¿vel irÃ¿ para dentro do FOR
 Local nLinAtu       := 0
 
 
-//Preciso identificar qual o tipo de operaÿÿo que o usuÿrio estÿ fazendo(INCLUSÿO/ALTERAÿÿO/EXCLUSÿO)
+//Preciso identificar qual o tipo de operaÃ¿Ã¿o que o usuÃ¿rio estÃ¿ fazendo(INCLUSÃ¿O/ALTERAÃ¿Ã¿O/EXCLUSÃ¿O)
 Local cOption       := oModelCabec:GetOperation()
 
-/*Fazemos a seleÿÿo da nossa ÿrea que serÿ manipulada, ou seja, 
-colocamos a tabela SZ7, em evidÿncia juntamente com um ÿndice de ordenaÿÿo
+/*Fazemos a seleÃ¿Ã¿o da nossa Ã¿rea que serÃ¿ manipulada, ou seja, 
+colocamos a tabela SZ7, em evidÃ¿ncia juntamente com um Ã¿ndice de ordenaÃ¿Ã¿o
 
-OU SEJA...->>> VOCÿ FALA PAR A O PROTHEUS O SEGUINTE: 
+OU SEJA...->>> VOCÃ¿ FALA PAR A O PROTHEUS O SEGUINTE: 
 "-E a? cara a partir de agora eu vou modificar a SZ7"=
 */
 
 DbSelectArea("SZ7")
-SZ7->(DbSetOrder(1)) //ÿNDICE FILIAL+NUMEROPEDIDO
+SZ7->(DbSetOrder(1)) //Ã¿NDICE FILIAL+NUMEROPEDIDO
 
 
-//Se a operaÿÿo que estÿ sendo feita, for uma inserÿÿo, ele farÿ a inserÿÿo
+//Se a operaÃ¿Ã¿o que estÃ¿ sendo feita, for uma inserÃ¿Ã¿o, ele farÃ¿ a inserÃ¿Ã¿o
 IF cOption == MODEL_OPERATION_INSERT
     For nLinAtu:= 1 to Len(aColsAux) //Mede o tamanho do aCOls, ou seja quantos itens existem no grid
-        //Porÿeeeeeem, antes de tentar inserir, eu devo verificar, se a linha estÿ deletada
-        IF !aColsAux[nLinAtu][Len(aHeaderAux)+1] //Expressÿo para verificar se uma linha estÿ excluÿda no aCols(se nÿo estiver excluÿda ele prossegue)
-            RecLock("SZ7",.T.) //.T. para inclusÿo .F. para alteraÿÿo/exclusÿo
-                //DADOS DO CABEÿALHO
-                Z7_FILIAL       :=  cFilSZ7 //Variÿvel com o dado da filial no cabeÿalho
-                Z7_NUM          :=  cNum   //variÿvel com o dado do numero do pedido no cabeÿalho
+        //PorÃ¿eeeeeem, antes de tentar inserir, eu devo verificar, se a linha estÃ¿ deletada
+        IF !aColsAux[nLinAtu][Len(aHeaderAux)+1] //ExpressÃ¿o para verificar se uma linha estÃ¿ excluÃ¿da no aCols(se nÃ¿o estiver excluÃ¿da ele prossegue)
+            RecLock("SZ7",.T.) //.T. para inclusÃ¿o .F. para alteraÃ¿Ã¿o/exclusÃ¿o
+                //DADOS DO CABEÃ¿ALHO
+                Z7_FILIAL       :=  cFilSZ7 //VariÃ¿vel com o dado da filial no cabeÃ¿alho
+                Z7_NUM          :=  cNum   //variÃ¿vel com o dado do numero do pedido no cabeÃ¿alho
                 Z7_EMISSAO      :=  dEmissao
                 Z7_FORNECE      :=  cFornece
                 Z7_LOJA         :=  cLoja
@@ -521,27 +521,27 @@ IF cOption == MODEL_OPERATION_INSERT
 ELSEIF  cOption == MODEL_OPERATION_UPDATE
 
     For nLinAtu:= 1 to Len(aColsAux) //Mede o tamanho do aCOls, ou seja quantos itens existem no grid
-        //Por?eeeeeem, antes de tentar inserir, eu devo verificar, se a linha estÿ deletada
-        IF aColsAux[nLinAtu][Len(aHeaderAux)+1] //Expressÿo para verificar se uma linha estÿ excluÿda no aCols(SE ESTIVER EXCLUÿDA ELE VERIFICA SE ESTÿ NO BANCO
-            //Se a linha estiver deletada, eu ainda preciso verificar se a linha deletada estÿ inclusa ou nÿo no sistema
-            SZ7->(DbSetOrder(2)) //ÿNDICE FILIAL+NUMEROPEDIDO+ITEM
+        //Por?eeeeeem, antes de tentar inserir, eu devo verificar, se a linha estÃ¿ deletada
+        IF aColsAux[nLinAtu][Len(aHeaderAux)+1] //ExpressÃ¿o para verificar se uma linha estÃ¿ excluÃ¿da no aCols(SE ESTIVER EXCLUÃ¿DA ELE VERIFICA SE ESTÃ¿ NO BANCO
+            //Se a linha estiver deletada, eu ainda preciso verificar se a linha deletada estÃ¿ inclusa ou nÃ¿o no sistema
+            SZ7->(DbSetOrder(2)) //Ã¿NDICE FILIAL+NUMEROPEDIDO+ITEM
             IF SZ7->(DbSeek(cFilSZ7 + cNum + aColsAux[nLinAtu,nPosItem])) //Faz a busca, se encontrar, ele deve deletar do banco
                 RECLOCK("SZ7",.F.)
                     DbDelete()
                 SZ7->(MSUNLOCK())
             ENDIF
         
-        ELSE //SE A LINHA NÿO ESTIVER EXCLUÿDA, FAÿO A ALTERAÿÿO
-        /*EMBORA SEJA UMA ALTERAÿÿO, EU POSSO TER NOVOS ITENS INCLUSOS NO MEU PEDIDO
-        SENDO ASSIM, PRECISO VALIDAR SE ESTES ITENS EXISTEM NO BANCO DE DADOS OU NÿO
-        CASO ELES NÿO EXISTAM, EU FAÿO UMA INCLUSÿO RECLOCK("SZ7",.T.)
+        ELSE //SE A LINHA NÃ¿O ESTIVER EXCLUÃ¿DA, FAÃ¿O A ALTERAÃ¿Ã¿O
+        /*EMBORA SEJA UMA ALTERAÃ¿Ã¿O, EU POSSO TER NOVOS ITENS INCLUSOS NO MEU PEDIDO
+        SENDO ASSIM, PRECISO VALIDAR SE ESTES ITENS EXISTEM NO BANCO DE DADOS OU NÃ¿O
+        CASO ELES NÃ¿O EXISTAM, EU FAÃ¿O UMA INCLUSÃ¿O RECLOCK("SZ7",.T.)
         */
-            SZ7->(DbSetOrder(2)) //ÿNDICE FILIAL+NUMEROPEDIDO+ITEM
-            IF SZ7->(DbSeek(cFilSZ7 + cNum + aColsAux[nLinAtu,nPosItem])) //Faz a busca, se encontrar, ele FARÿ UMA ALTERAÿÿO
-                RecLock("SZ7",.F.) //.T. para inclusÿo .F. para alteraÿÿo/exclusÿo
-                    //DADOS DO CABEÿALHO
-                    Z7_FILIAL       :=  cFilSZ7 //Variÿvel com o dado da filial no cabeÿalho
-                    Z7_NUM          :=  cNum   //variÿvel com o dado do numero do pedido no cabeÿalho
+            SZ7->(DbSetOrder(2)) //Ã¿NDICE FILIAL+NUMEROPEDIDO+ITEM
+            IF SZ7->(DbSeek(cFilSZ7 + cNum + aColsAux[nLinAtu,nPosItem])) //Faz a busca, se encontrar, ele FARÃ¿ UMA ALTERAÃ¿Ã¿O
+                RecLock("SZ7",.F.) //.T. para inclusÃ¿o .F. para alteraÃ¿Ã¿o/exclusÃ¿o
+                    //DADOS DO CABEÃ¿ALHO
+                    Z7_FILIAL       :=  cFilSZ7 //VariÃ¿vel com o dado da filial no cabeÃ¿alho
+                    Z7_NUM          :=  cNum   //variÃ¿vel com o dado do numero do pedido no cabeÃ¿alho
                     Z7_EMISSAO      :=  dEmissao
                     Z7_FORNECE      :=  cFornece
                     Z7_LOJA         :=  cLoja
@@ -553,11 +553,11 @@ ELSEIF  cOption == MODEL_OPERATION_UPDATE
                     Z7_PRECO        :=  aColsAux[nLinAtu,nPosPrc]
                     Z7_TOTAL        :=  aColsAux[nLinAtu,nPosTotal] 
                 SZ7->(MSUNLOCK())
-            ELSE //SE ELE NÿO ACHAR, ÿ PORQUE O ITEM NÿO EXISTE AINDA NA BASE DE DADOS, LOGO IRÿ INCLUIR
-                RecLock("SZ7",.T.) //.T. para inclusÿo .F. para alteraÿÿo/exclusÿo
-                    //DADOS DO CABEÿALHO
-                    Z7_FILIAL       :=  cFilSZ7 //Variÿvel com o dado da filial no cabeÿalho
-                    Z7_NUM          :=  cNum   //variÿvel com o dado do numero do pedido no cabeÿalho
+            ELSE //SE ELE NÃ¿O ACHAR, Ã¿ PORQUE O ITEM NÃ¿O EXISTE AINDA NA BASE DE DADOS, LOGO IRÃ¿ INCLUIR
+                RecLock("SZ7",.T.) //.T. para inclusÃ¿o .F. para alteraÃ¿Ã¿o/exclusÃ¿o
+                    //DADOS DO CABEÃ¿ALHO
+                    Z7_FILIAL       :=  cFilSZ7 //VariÃ¿vel com o dado da filial no cabeÃ¿alho
+                    Z7_NUM          :=  cNum   //variÃ¿vel com o dado do numero do pedido no cabeÃ¿alho
                     Z7_EMISSAO      :=  dEmissao
                     Z7_FORNECE      :=  cFornece
                     Z7_LOJA         :=  cLoja
@@ -588,7 +588,7 @@ ELSEIF cOption == MODEL_OPERATION_DELETE
     SZ7->(dbSkip())
     ENDDO
 
-/* OUTRA FORMA DE EXCLUSÿO COM BASE NO QUE ESTÿ NO GRID.
+/* OUTRA FORMA DE EXCLUSÃ¿O COM BASE NO QUE ESTÃ¿ NO GRID.
     SZ7->(dbSetOrder(2))
     For nLinAtu := 1 to Len(aColsAux)
         //Regrinha para verificar se a linha est? exclu?da, se n?o tiver ir? incluir
