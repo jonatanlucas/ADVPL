@@ -46,8 +46,8 @@ oBrowse:AddLegend("SZ2->Z2_STATUS == '1'","GREEN"   ,"Chamado Aberto")
 oBrowse:AddLegend("SZ2->Z2_STATUS == '2'","RED"     ,"Chamado Finalizado")
 oBrowse:AddLegend("SZ2->Z2_STATUS == '3'","YELLOW"  ,"Chamado em Andamento")
 
-//Deve definir de onde vir˜ o MenuDef devo chamar o meu menu
-oBrowse:SetMenudef("MVCZ2Z3") //Coloco o fonte de onde vir˜ o meu menu
+//Deve definir de onde virËœ o MenuDef devo chamar o meu menu
+oBrowse:SetMenudef("MVCZ2Z3") //Coloco o fonte de onde virËœ o meu menu
 
 RestArea(aArea)
 
@@ -69,18 +69,18 @@ Static Function MenuDef()
 Local aMenu     := {}
 
 
-//Trago atrav˜s da FwMvcMenu, o menu para o array aMenuAut
+//Trago atravËœs da FwMvcMenu, o menu para o array aMenuAut
 Local aMenuAut      := FwMvcMenu("MVCZ2Z3")   
 
-/*Adiciono dentro da vari?vel aMenu, o t?tulo Legenda e Sobre, junto com a a˜˜o
-de chamar as UserFunctions de legenda e Sobre, essas opera˜˜es s˜o de c˜digo 6, e
-eu passo o n˜vel de usu˜rio 0
+/*Adiciono dentro da vari?vel aMenu, o t?tulo Legenda e Sobre, junto com a aËœËœo
+de chamar as UserFunctions de legenda e Sobre, essas operaËœËœes sËœo de cËœdigo 6, e
+eu passo o nËœvel de usuËœrio 0
 */
 ADD OPTION aMenu TITLE 'Legenda'      ACTION 'u_SZ2LEG'         OPERATION 6 ACCESS 0
 ADD OPTION aMenu TITLE 'Sobre'        ACTION 'u_SZ2SOBRE'       OPERATION 6 ACCESS 0
 
-/*Utilizo um la˜o de repeti˜˜o para adicionar ˜ vari˜vel aMenu, 
-o que eu criai automaticamente para a vari˜vel aMenuAut*/
+/*Utilizo um laËœo de repetiËœËœo para adicionar Ëœ variËœvel aMenu, 
+o que eu criai automaticamente para a variËœvel aMenuAut*/
 
 For n:= 1 to Len(aMenuAut)
     aAdd(aMenu,aMenuAut[n])
@@ -103,30 +103,30 @@ Return aMenu
     @see (links_or_references)
     /*/
 Static Function ModelDef()
-//Declaro o meu modelo de dados sem passar blocos de valida˜˜o pois usaremos a valida˜˜o padr˜o do MVC
+//Declaro o meu modelo de dados sem passar blocos de validaËœËœo pois usaremos a validaËœËœo padrËœo do MVC
 Local oModel := MPFormModel():New("MVCZ23M",/*bPre*/,  /*bPos*/,  /*bCommit*/,/*bCancel*/)
 
 //Crio as estruturas das tabelas PAI(SZ2) e FILHO(SZ3)
 Local oStPaiZ2      := FwFormStruct(1,"SZ2")
 Local oStFilhoZ3    := FwFormStruct(1,"SZ3")
 
-//Ap˜s declarar a estrutura de dados, eu posso modificar o campo com SetProperty
+//ApËœs declarar a estrutura de dados, eu posso modificar o campo com SetProperty
 
 oStFilhoZ3:SetProperty("Z3_CHAMADO",MODEL_FIELD_INIT,FwBuildFeature(STRUCT_FEATURE_INIPAD, "SZ2->Z2_COD"))
 
 
-//Crio Modelos de dados Cabe˜alho e Item
+//Crio Modelos de dados CabeËœalho e Item
 oModel:AddFields("SZ2MASTER",,oStPaiZ2)
-oModel:AddGrid("SZ3DETAIL","SZ2MASTER",oStFilhoZ3,,,,,)//ESSAS v˜rgulas em branco, s˜o blocos de valida˜˜o que n˜o vamos usar
+oModel:AddGrid("SZ3DETAIL","SZ2MASTER",oStFilhoZ3,,,,,)//ESSAS vËœrgulas em branco, sËœo blocos de validaËœËœo que nËœo vamos usar
 
-//O meu grid, ir˜ se relacionar com o cabe˜alho, atrav˜s dos campos FILIAL e CODIGO DE CHAMADO
+//O meu grid, irËœ se relacionar com o cabeËœalho, atravËœs dos campos FILIAL e CODIGO DE CHAMADO
 oModel:SetRelation("SZ3DETAIL",{{"Z3_FILIAL","xFilial('SZ2')"},{"Z3_CHAMADO","Z2_COD"}},SZ3->(IndexKey(1)))
 
-//Setamos a chave prim˜ria, prevalece o que est˜ na SX2(X2_UNICO), se na X2 estiver preenchido
-//N˜o podemos ter dentro de uma chamado, dois coment˜rios com o mesmo c˜digo
+//Setamos a chave primËœria, prevalece o que estËœ na SX2(X2_UNICO), se na X2 estiver preenchido
+//NËœo podemos ter dentro de uma chamado, dois comentËœrios com o mesmo cËœdigo
 oModel:SetPrimaryKey({"Z3_FILIAL","Z3_CHAMADO","Z3_CODIGO"})
 
-//Combina˜˜o de campos que n˜o podem se repetir, ficarem iguais
+//CombinaËœËœo de campos que nËœo podem se repetir, ficarem iguais
 oModel:GetModel("SZ3DETAIL"):SetUniqueLine({"Z3_CHAMADO","Z3_CODIGO"})
 
 oModel:SetDescription("Modelo 3 - Sistema de Chamados")
@@ -134,7 +134,7 @@ oModel:GetModel("SZ2MASTER"):SetDescription("CABE?ALHO DO CHAMADO")
 oModel:GetModel("SZ3DETAIL"):SetDescription("COMENT?RIOS DO CHAMADO")
 
 /*
-Como n˜o vamos manipular aCols nem aHeader, n˜o vou usar o SetOldGrid
+Como nËœo vamos manipular aCols nem aHeader, nËœo vou usar o SetOldGrid
 */
 
 Return oModel
@@ -155,37 +155,37 @@ Return oModel
 Static Function ViewDef()
 Local oView     := Nil
 
-//Invoco o Model da fun˜˜o que quero
+//Invoco o Model da funËœËœo que quero
 Local oModel    := FwLoadModel("MVCZ2Z3")
 
 /*
-A grande diferen˜a das estruturas de dados do modelo 2 para o modelo 3, ˜ que no modelo 2
-a estrutura de dados do cabe˜alho ˜ tempor˜ria/imagin˜ria/fict˜cia, j˜aaaaaaaa no modelo 3/x
-todas as estruturas de dados, tendem ˜ ser REAIS, ou seja, importamos via FwFormStruct, a(s) tabela(s)
+A grande diferenËœa das estruturas de dados do modelo 2 para o modelo 3, Ëœ que no modelo 2
+a estrutura de dados do cabeËœalho Ëœ temporËœria/imaginËœria/fictËœcia, jËœaaaaaaaa no modelo 3/x
+todas as estruturas de dados, tendem Ëœ ser REAIS, ou seja, importamos via FwFormStruct, a(s) tabela(s)
 propriamente ditas
 */
 Local oStPaiZ2      := FwFormStruct(2,"SZ2")
 Local oStFilhoZ3    := FwFormStruct(2,"SZ3")
 
-//Removo o campo para n˜o aparecer, j˜ que ele estar˜ sendo preenchido automaticamente pelo c˜digo do chamado do cabe˜alho
+//Removo o campo para nËœo aparecer, jËœ que ele estarËœ sendo preenchido automaticamente pelo cËœdigo do chamado do cabeËœalho
 oStFilhoZ3:RemoveField("Z3_CHAMADO")
 
-//Travo o campo de Codigo para n˜o ser editado, ou seja, o campo CODIGO DE COMENTARIO do chamado, ser˜ autom˜tico e n˜o poder˜ ser modificado
+//Travo o campo de Codigo para nËœo ser editado, ou seja, o campo CODIGO DE COMENTARIO do chamado, serËœ automËœtico e nËœo poderËœ ser modificado
 oStFilhoZ3:SetProperty("Z3_CODIGO",    MVC_VIEW_CANCHANGE, .F.)
 
 
 
-//Fa˜o a instancia da fun˜˜o FwFormView para a vari˜vel oView
+//FaËœo a instancia da funËœËœo FwFormView para a variËœvel oView
 oView   := FwFormView():New()
 
 //Carrego o model importado para a View
 oView:SetModel(oModel)
 
-//Crio as views de cabe˜alho e item, com as estruturas de dados criadas acima
+//Crio as views de cabeËœalho e item, com as estruturas de dados criadas acima
 oView:AddField("VIEWSZ2",oStPaiZ2,"SZ2MASTER")
 oView:AddGrid("VIEWSZ3",oStFilhoZ3,"SZ3DETAIL")
 
-//Fa˜o o campo de Item ficar incremental
+//FaËœo o campo de Item ficar incremental
 oView:AddIncrementField("SZ3DETAIL","Z3_CODIGO") //Soma 1 ao campo de Item
 
 //Criamos os BOX horizontais para CABE?ALHO E ITENS
@@ -196,7 +196,7 @@ oView:CreateHorizontalBox("GRID",40)
 oView:SetOwnerView("VIEWSZ2","CABEC")
 oView:SetOwnerView("VIEWSZ3","GRID")
 
-//Darei t˜tulos personalizados ao cabe˜alho e coment˜rios do chamado
+//Darei tËœtulos personalizados ao cabeËœalho e comentËœrios do chamado
 oView:EnableTitleView("VIEWSZ2","Detalhes do Chamado/Cabe?alho")
 oView:EnableTitleView("VIEWSZ3","Coment?rios do do chamado/Itens")
 
