@@ -69,12 +69,12 @@ Static Function MenuDef()
 Local aMenu     := {}
 
 
-//Trago atrav˜s da FwMvcMenu, o menu para o array aMenuAut
+//Trago atravËœs da FwMvcMenu, o menu para o array aMenuAut
 Local aMenuAut      := FwMvcMenu("MVCVLD")   
 
 /*Adiciono dentro da vari?vel aMenu, o t?tulo Legenda e Sobre, junto com a a??o
-de chamar as UserFunctions de legenda e Sobre, essas opera??es s˜o de c˜digo 6, e
-eu passo o n˜vel de usu˜rio 0
+de chamar as UserFunctions de legenda e Sobre, essas opera??es sËœo de cËœdigo 6, e
+eu passo o nËœvel de usuËœrio 0
 */
 ADD OPTION aMenu TITLE 'Legenda'      ACTION 'u_zSZ2LEG'         OPERATION 6 ACCESS 0
 ADD OPTION aMenu TITLE 'Sobre'        ACTION 'u_zSZ2SOBRE'       OPERATION 6 ACCESS 0
@@ -114,11 +114,11 @@ Local oStFilhoZ3    := FwFormStruct(1,"SZ3")
 
 oStFilhoZ3:SetProperty("Z3_CHAMADO",MODEL_FIELD_INIT,FwBuildFeature(STRUCT_FEATURE_INIPAD, "SZ2->Z2_COD"))
 
-//Crio minha trigger para trazer o nome do usuário automaticamente
+//Crio minha trigger para trazer o nome do usuÃ¡rio automaticamente
 aTrigUser := FwStruTrigger(;
-"Z2_USUARIO",;  //Campo que irá disparar o gatilho/trigger
-"Z2_USERNAM",;  //Campo que irá receber o conteúdo disparado
-"USRRETNAME(M->Z2_USUARIO)",; // Conteúdo que irá para o campo Z2_USRRETNAME
+"Z2_USUARIO",;  //Campo que irÃ¡ disparar o gatilho/trigger
+"Z2_USERNAM",;  //Campo que irÃ¡ receber o conteÃºdo disparado
+"USRRETNAME(M->Z2_USUARIO)",; // ConteÃºdo que irÃ¡ para o campo Z2_USRRETNAME
 .F.)
 
 oStPaiZ2:AddTrigger(;
@@ -131,7 +131,7 @@ aTrigUser[4])
 oModel:AddFields("SZ2MASTER",,oStPaiZ2)
 oModel:AddGrid("SZ3DETAIL","SZ2MASTER",oStFilhoZ3,,,,,)//ESSAS v?rgulas em branco, s?o blocos de valida??o que n?o vamos usar
 
-//Chamo o método SetVldActivate e passo como parâmetro o bloco de código com a minha Static Function
+//Chamo o mÃ©todo SetVldActivate e passo como parÃ¢metro o bloco de cÃ³digo com a minha Static Function
 oModel:SetVldActivate({|oModel| MActivVld(oModel)})
 
 //O meu grid, ir? se relacionar com o cabe?alho, atrav?s dos campos FILIAL e CODIGO DE CHAMADO
@@ -141,15 +141,15 @@ oModel:SetRelation("SZ3DETAIL",{{"Z3_FILIAL","xFilial('SZ2')"},{"Z3_CHAMADO","Z2
 //N?o podemos ter dentro de uma chamado, dois coment?rios com o mesmo c?digo
 oModel:SetPrimaryKey({"Z3_FILIAL","Z3_CHAMADO","Z3_CODIGO"})
 
-//Combina˜˜o de campos que n˜o podem se repetir, ficarem iguais
+//CombinaËœËœo de campos que nËœo podem se repetir, ficarem iguais
 oModel:GetModel("SZ3DETAIL"):SetUniqueLine({"Z3_CHAMADO","Z3_CODIGO"})
 
 oModel:SetDescription("Modelo 3 - Sistema de Chamados")
-oModel:GetModel("SZ2MASTER"):SetDescription("CABEÇALHO DO CHAMADO")
-oModel:GetModel("SZ3DETAIL"):SetDescription("COMENTÁRIOS DO CHAMADO")
+oModel:GetModel("SZ2MASTER"):SetDescription("CABEÃ‡ALHO DO CHAMADO")
+oModel:GetModel("SZ3DETAIL"):SetDescription("COMENTÃRIOS DO CHAMADO")
 
 /*
-Como n˜o vamos manipular aCols nem aHeader, n˜o vou usar o SetOldGrid
+Como nËœo vamos manipular aCols nem aHeader, nËœo vou usar o SetOldGrid
 */
 
 Return oModel
@@ -170,38 +170,38 @@ Return oModel
 Static Function ViewDef()
 Local oView     := Nil
 
-//Invoco o Model da fun˜˜o que quero
+//Invoco o Model da funËœËœo que quero
 Local oModel    := FwLoadModel("MVCVLD")
 
 /*
-A grande diferen˜a das estruturas de dados do modelo 2 para o modelo 3, ˜ que no modelo 2
-a estrutura de dados do cabe˜alho ˜ tempor˜ria/imagin˜ria/fict˜cia, j˜aaaaaaaa no modelo 3/x
-todas as estruturas de dados, tendem ˜ ser REAIS, ou seja, importamos via FwFormStruct, a(s) tabela(s)
+A grande diferenËœa das estruturas de dados do modelo 2 para o modelo 3, Ëœ que no modelo 2
+a estrutura de dados do cabeËœalho Ëœ temporËœria/imaginËœria/fictËœcia, jËœaaaaaaaa no modelo 3/x
+todas as estruturas de dados, tendem Ëœ ser REAIS, ou seja, importamos via FwFormStruct, a(s) tabela(s)
 propriamente ditas
 */
 Local oStPaiZ2      := FwFormStruct(2,"SZ2")
 Local oStFilhoZ3    := FwFormStruct(2,"SZ3")
 
-//Removo o campo para n˜o aparecer, j˜ que ele estar˜ sendo preenchido automaticamente pelo c˜digo do chamado do cabe˜alho
+//Removo o campo para nËœo aparecer, jËœ que ele estarËœ sendo preenchido automaticamente pelo cËœdigo do chamado do cabeËœalho
 oStFilhoZ3:RemoveField("Z3_CHAMADO")
 
-//Travo o campo de Codigo para n˜o ser editado, ou seja, o campo CODIGO DE COMENTARIO do chamado, ser˜ autom˜tico e n˜o poder˜ ser modificado
+//Travo o campo de Codigo para nËœo ser editado, ou seja, o campo CODIGO DE COMENTARIO do chamado, serËœ automËœtico e nËœo poderËœ ser modificado
 oStFilhoZ3:SetProperty("Z3_CODIGO",    MVC_VIEW_CANCHANGE, .F.)
 
-//Passo a consulta padrão campo de usuário, onde retornará o coódido de usuário
+//Passo a consulta padrÃ£o campo de usuÃ¡rio, onde retornarÃ¡ o coÃ³dido de usuÃ¡rio
 oStPaiZ2:SetProperty("Z2_USUARIO", MVC_VIEW_LOOKUP, "USR")
 
-//Fa˜o a instancia da fun˜˜o FwFormView para a vari˜vel oView
+//FaËœo a instancia da funËœËœo FwFormView para a variËœvel oView
 oView   := FwFormView():New()
 
 //Carrego o model importado para a View
 oView:SetModel(oModel)
 
-//Crio as views de cabe˜alho e item, com as estruturas de dados criadas acima
+//Crio as views de cabeËœalho e item, com as estruturas de dados criadas acima
 oView:AddField("VIEWSZ2",oStPaiZ2,"SZ2MASTER")
 oView:AddGrid("VIEWSZ3",oStFilhoZ3,"SZ3DETAIL")
 
-//Fa˜o o campo de Item ficar incremental
+//FaËœo o campo de Item ficar incremental
 oView:AddIncrementField("SZ3DETAIL","Z3_CODIGO") //Soma 1 ao campo de Item
 
 //Criamos os BOX horizontais para CABE?ALHO E ITENS
@@ -212,9 +212,9 @@ oView:CreateHorizontalBox("GRID",40)
 oView:SetOwnerView("VIEWSZ2","CABEC")
 oView:SetOwnerView("VIEWSZ3","GRID")
 
-//Darei t˜tulos personalizados ao cabe˜alho e coment˜rios do chamado
-oView:EnableTitleView("VIEWSZ2","Detalhes do Chamado/Cabeçalho")
-oView:EnableTitleView("VIEWSZ3","Comentários do do chamado/Itens")
+//Darei tËœtulos personalizados ao cabeËœalho e comentËœrios do chamado
+oView:EnableTitleView("VIEWSZ2","Detalhes do Chamado/CabeÃ§alho")
+oView:EnableTitleView("VIEWSZ3","ComentÃ¡rios do do chamado/Itens")
 
 Return oView
 
@@ -243,8 +243,8 @@ MsgInfo(cSobre,"Sobre o Programador...")
 return
 
 /*/{Protheus.doc} MActivVld
-    Está função fará a validação se o usuário estará apto à entrar dentro da rotina ou não.
-    Se ele não estiver dentro do Parametro MV_XUSMVC, ele não poderá por exemplo.. 
+    EstÃ¡ funÃ§Ã£o farÃ¡ a validaÃ§Ã£o se o usuÃ¡rio estarÃ¡ apto Ã  entrar dentro da rotina ou nÃ£o.
+    Se ele nÃ£o estiver dentro do Parametro MV_XUSMVC, ele nÃ£o poderÃ¡ por exemplo.. 
     Incluir ou Alterar
     @type  Static Function
     @author user
@@ -259,24 +259,24 @@ return
 Static Function MActivVld(oModel)
 Local lRet := .T.
 
-Local cUsersMVC := SUPERGETMV("MV_XUSMVC") //Pego o conteúdo do parâmetro e passo para a cUsersMVC
+Local cUsersMVC := SUPERGETMV("MV_XUSMVC") //Pego o conteÃºdo do parÃ¢metro e passo para a cUsersMVC
 Local cCodUser  := RetCodUsr()
 
-if !(cCodUser$cUsersMVC) //Se o conteúdo da variável cCodUser Não estiver dentro de cUsersMVC ele BLOQUEIA
-//Já que o código de usuário corrente capturado não pertence ao parãmetro, a variável de controle será FALSE
+if !(cCodUser$cUsersMVC) //Se o conteÃºdo da variÃ¡vel cCodUser NÃ£o estiver dentro de cUsersMVC ele BLOQUEIA
+//JÃ¡ que o cÃ³digo de usuÃ¡rio corrente capturado nÃ£o pertence ao parÃ£metro, a variÃ¡vel de controle serÃ¡ FALSE
    lRet  := .F.
-    //Se  você não colocar um HELP customizado, o MVC colocará um HELP padrao
-   Help(NIL, NIL, "MActivVld", NIL, "Usuário não autorizado",;
-    1,0, NIL, NIL, NIL, NIL, NIL,{"Este usuário não está autorizado à realizar esta operação, vide parâmetro MV_XUSMVC"})
+    //Se  vocÃª nÃ£o colocar um HELP customizado, o MVC colocarÃ¡ um HELP padrao
+   Help(NIL, NIL, "MActivVld", NIL, "UsuÃ¡rio nÃ£o autorizado",;
+    1,0, NIL, NIL, NIL, NIL, NIL,{"Este usuÃ¡rio nÃ£o estÃ¡ autorizado Ã  realizar esta operaÃ§Ã£o, vide parÃ¢metro MV_XUSMVC"})
 ELSE
-    IF cCodUser == "000000" //Se o código de usuário for igual ao código de usuário de Administrador ele liberará os campos
-        //Vamos bloquear ou liberar os campos de Z2_DATA e Z2_USUARIO passando o parâmetro .T.
+    IF cCodUser == "000000" //Se o cÃ³digo de usuÃ¡rio for igual ao cÃ³digo de usuÃ¡rio de Administrador ele liberarÃ¡ os campos
+        //Vamos bloquear ou liberar os campos de Z2_DATA e Z2_USUARIO passando o parÃ¢metro .T.
 
-        ///// Modelo -> Submodelo -> Estrutura -> Prorpiedade -> Bloco de código -> X3_WHEN : .T.
+        ///// Modelo -> Submodelo -> Estrutura -> Prorpiedade -> Bloco de cÃ³digo -> X3_WHEN : .T.
         oModel:GetModel("SZ2MASTER"):GetStruct():SetProperty("Z2_DATA",    MODEL_FIELD_WHEN,FwBuildFeature(STRUCT_FEATURE_WHEN,".T."))
         oModel:GetModel("SZ2MASTER"):GetStruct():SetProperty("Z2_USUARIO", MODEL_FIELD_WHEN,FwBuildFeature(STRUCT_FEATURE_WHEN,".T."))
     ELSE
-        ///// Modelo -> Submodelo -> Estrutura -> Prorpiedade -> Bloco de código -> X3_WHEN : .F.
+        ///// Modelo -> Submodelo -> Estrutura -> Prorpiedade -> Bloco de cÃ³digo -> X3_WHEN : .F.
         oModel:GetModel("SZ2MASTER"):GetStruct():SetProperty("Z2_DATA",    MODEL_FIELD_WHEN,FwBuildFeature(STRUCT_FEATURE_WHEN,".F."))
         oModel:GetModel("SZ2MASTER"):GetStruct():SetProperty("Z2_USUARIO", MODEL_FIELD_WHEN,FwBuildFeature(STRUCT_FEATURE_WHEN,".F."))
 
@@ -312,7 +312,7 @@ Return lRet
 */
 
 /*/{Protheus.doc} MPosVld
-No bloco de PÓs Validação eu valido meu modelo, antes de ir para o COMMIT
+No bloco de PÃ“s ValidaÃ§Ã£o eu valido meu modelo, antes de ir para o COMMIT
     @type  Static Function
     @author user
     @since 26/06/2022
@@ -328,12 +328,12 @@ Local lRet         := .T.
 
                         //MODELO --> SUBMODELO ---> CAMPO
 Local cTitChamado  := oModel:GetValue("SZ2MASTER","Z2_TITCHAM")
-Local nLen         := Len(AllTrim(cTitChamado)) //Retiro os espaços em brancos e conto quantos caracteres tem
+Local nLen         := Len(AllTrim(cTitChamado)) //Retiro os espaÃ§os em brancos e conto quantos caracteres tem
 
 IF nLen < 15
     lRet   := .F.
     Help(Nil,Nil,"MPosVld",Nil,"POSVALIDATION",;
-    1,0, Nil, Nil, Nil, Nil, Nil,{"O título do Chamado deve ter 15 caracteres ou mais"})
+    1,0, Nil, Nil, Nil, Nil, Nil,{"O tÃ­tulo do Chamado deve ter 15 caracteres ou mais"})
 ENDIF
 
 Return lRet
@@ -352,11 +352,11 @@ Return lRet
 /*/
 Static Function MComVld(oModel)
 
-/*O parâmetro está ligado à informação de que o Commit foi ou não foi feito
-mas mesmo se eu não colocar o parâmetro, a gravação será feita, contudo aparecerá um help em branco*/
+/*O parÃ¢metro estÃ¡ ligado Ã  informaÃ§Ã£o de que o Commit foi ou nÃ£o foi feito
+mas mesmo se eu nÃ£o colocar o parÃ¢metro, a gravaÃ§Ã£o serÃ¡ feita, contudo aparecerÃ¡ um help em branco*/
 Local lRet := .T.
 
-FwFormCommit(oModel) //Faço o commit do modelo de dados que foi validado no PosValidation
+FwFormCommit(oModel) //FaÃ§o o commit do modelo de dados que foi validado no PosValidation
 
 Return lRet
 
@@ -373,13 +373,13 @@ Return lRet
     @see (links_or_references)
 /*/
 Static Function MCancVld(oModel)
-//Por padrão ele deve cancelar a tela de inserção/Alteração, etc
+//Por padrÃ£o ele deve cancelar a tela de inserÃ§Ã£o/AlteraÃ§Ã£o, etc
 
 Local lRet := .T.
 
-IF !(MsgYesNo("Deseja realmente fechar esta tela - Não será possível recuperar depois"))
+IF !(MsgYesNo("Deseja realmente fechar esta tela - NÃ£o serÃ¡ possÃ­vel recuperar depois"))
     Help(Nil,Nil,"MCancVld",Nil,"CANCEL",;
-    1,0,Nil,Nil,Nil,Nil,Nil,{"Saída/Cancelamento abortado pelo usuário"})
+    1,0,Nil,Nil,Nil,Nil,Nil,{"SaÃ­da/Cancelamento abortado pelo usuÃ¡rio"})
     lRet := .F.
 ENDIF
 
