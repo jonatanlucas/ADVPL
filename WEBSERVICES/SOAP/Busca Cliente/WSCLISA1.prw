@@ -2,7 +2,7 @@
 #include "APWEBSRV.ch" //Include principal dos WebServices
 #include "TOPCONN.ch"
 
-/*Estrutura de dados que será retornada pelo WebService na chamada pelo CLIENT*/
+/*Estrutura de dados que serÃ¡ retornada pelo WebService na chamada pelo CLIENT*/
 WSSTRUCT STCliente
     WSDATA clienteA1COD         AS STRING OPTIONAL
     WSDATA clienteA1LOJA        AS STRING OPTIONAL
@@ -29,26 +29,26 @@ WSSTRUCT STRetornoGeral
 ENDWSSTRUCT
 
 
-WSSERVICE WSCLISA1 DESCRIPTION "Serviço para retornar os dados de cliente específico da Protheuzeiro Strong"
+WSSERVICE WSCLISA1 DESCRIPTION "ServiÃ§o para retornar os dados de cliente especÃ­fico da Protheuzeiro Strong"
     
-    //Cdigo que ser requisitado pelo mtodo de Busca do Cliente
+    //CÂdigo que serÂ requisitado pelo mÂtodo de Busca do Cliente
     WSDATA _cCodClienteLoja     AS STRING
 
-    //Chamada da estrutura de retorno que ser retornada pelo mtodo
+    //Chamada da estrutura de retorno que serÂ retornada pelo mÂtodo
     WSDATA WSRetornoGeral       AS STRetornoGeral
 
-    WSMETHOD BuscaCliente      DESCRIPTION "Busca clientes da tabela SA1 com base no Código e Loja"
+    WSMETHOD BuscaCliente      DESCRIPTION "Busca clientes da tabela SA1 com base no CÃ³digo e Loja"
 ENDWSSERVICE 
 
 
-//          MÉTODO          PARAMETRO DE ENTRADA        RETORNO DO WS          WS A QUAL PERTENCE
+//          MÃ‰TODO          PARAMETRO DE ENTRADA        RETORNO DO WS          WS A QUAL PERTENCE
 WSMETHOD    BuscaCliente    WSRECEIVE _cCodClienteLoja  WSSEND  WSRetornoGeral WSSERVICE WSCLISA1
 Local cCliCodLoja  := ::_cCodClienteLoja
 
 DbSelectArea("SA1")
 SA1->(DbSetOrder(1))
 
-//Se ele encontrar, popula a estrutura de dados WSSTRUCT STCliente atravs do WsRetornoGeral
+//Se ele encontrar, popula a estrutura de dados WSSTRUCT STCliente atravÂs do WsRetornoGeral
 IF SA1->(DbSeek(xFilial("SA1")+cCliCodLoja))
     ::WsRetornoGeral:WsSTRetMsg:cRet                := "[T]"
     ::WsRetornoGeral:WsSTRetMsg:cMessage            := "Sucesso! Registro encontrado, dados listados."
@@ -63,7 +63,7 @@ IF SA1->(DbSeek(xFilial("SA1")+cCliCodLoja))
     ::WSRetornoGeral:WSSTClient:clienteA1CEP        := SA1->A1_CEP
 ELSE 
     ::WsRetornoGeral:WsSTRetMsg:cRet                := "[F]"
-    ::WsRetornoGeral:WsSTRetMsg:cMessage            := "Falha! Não existe registro relacionado à esta entrada(Código + Loja)"
+    ::WsRetornoGeral:WsSTRetMsg:cMessage            := "Falha! NÃ£o existe registro relacionado Ã  esta entrada(CÃ³digo + Loja)"
 
 ENDIF
 
