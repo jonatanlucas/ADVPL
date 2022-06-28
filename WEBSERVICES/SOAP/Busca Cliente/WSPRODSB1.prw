@@ -40,7 +40,7 @@ ENDWSSTRUCT
 
 
 
-WSSERVICE WSPRODSB1 DESCRIPTION "Serviço para retornar os dados de um Produto específico"
+WSSERVICE WSPRODSB1 DESCRIPTION "Servi?o para retornar os dados de um Produto específico"
     //Parametros de entrada
     WSDATA _cCodProduto   AS STRING
     //Parametro de retorno Através deste dado, ele acessará a classe de dados StRetGeralProd, e através dela, acessará o StProduto eo StRetMsgProd
